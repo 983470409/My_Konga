@@ -1,0 +1,49 @@
+{
+  "name": "ngBootbox",
+  "main": "dist/ngBootbox.js",
+  "version": "0.0.4",
+  "homepage": "https://github.com/eriktufvesson/ngBootbox",
+  "authors": [
+    "eriktufvesson <erik.tufvesson@gmail.com>"
+  ],
+  "description": "AngularJS wrapper for Bootbox.js",
+  "keywords": [
+    "angularjs",
+    "module",
+    "directive",
+    "bootbox",
+    "bootstrap",
+    "alert",
+    "confirm",
+    "prompt",
+    "dialog",
+    "modal"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "app/",
+    "projectFilesBackup",
+    ".idea"
+  ],
+  "dependencies": {
+    "angular": "~1.3.10",
+    "bootbox": "~4.3.0",
+    "bootstrap": "~3.3.2",
+    "jquery": "~2.1.3"
+  },
+  "devDependencies": {
+    "font-awesome": "~4.2.0"
+  },
+  "_release": "0.0.4",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.0.4",
+    "commit": "b3ddca1f9d944a51abe6237eb9f6c79c0577254e"
+  },
+  "_source": "https://github.com/eriktufvesson/ngBootbox.git",
+  "_target": "0.0.4",
+  "_originalSource": "ngBootbox"
+}

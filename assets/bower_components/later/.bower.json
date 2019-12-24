@@ -1,0 +1,28 @@
+{
+  "name": "later",
+  "version": "1.2.0",
+  "description": "Determine later (or previous) occurrences of recurring schedules",
+  "keywords": [
+    "schedule",
+    "occurrences",
+    "recur",
+    "cron"
+  ],
+  "author": "BunKat <bill@levelstory.com>",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/bunkat/later.git"
+  },
+  "main": "later.js",
+  "license": "MIT",
+  "homepage": "https://github.com/bunkat/later",
+  "_release": "1.2.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "1.2.0",
+    "commit": "76bf6ed7da1dbebd65dd36fe7320df4edd593e00"
+  },
+  "_source": "https://github.com/bunkat/later.git",
+  "_target": "^1.2.0",
+  "_originalSource": "later"
+}

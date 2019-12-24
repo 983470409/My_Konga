@@ -1,0 +1,41 @@
+{
+  "name": "angularSails",
+  "homepage": "https://github.com/balderdashy/angularSails",
+  "authors": [
+    "Rob Wormald <rob.wormald@innitapps.com>",
+    "Gabe Hernandez <ghernandez345@gmail.com>"
+  ],
+  "description": "SailsJS SDK for AngularJs",
+  "main": "dist/ngsails.io.js",
+  "keywords": [
+    "Angular",
+    "AngularJS",
+    "Sails",
+    "SailsJS",
+    "realtime"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "angular-mocks": "~1.3.0"
+  },
+  "dependencies": {
+    "angular": "~1.3.0",
+    "sails.io.js": "latest"
+  },
+  "_release": "1deb8a05d7",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "1deb8a05d737e5cb9224096378ebe949586cf570"
+  },
+  "_source": "https://github.com/balderdashy/angularSails.git",
+  "_target": "master",
+  "_originalSource": "angularSails"
+}

@@ -1,0 +1,38 @@
+{
+  "name": "prettycron",
+  "main": "prettycron.js",
+  "version": "0.11.0",
+  "homepage": "http://azza-bazoo.github.io/prettycron/",
+  "authors": [
+    "Hourann Bosci (http://hourann.com)"
+  ],
+  "description": "Display cron runspecs in human-readable format",
+  "dependencies": {
+    "moment": "^2.8.4",
+    "later": "^1.1.6"
+  },
+  "moduleType": [
+    "globals",
+    "node"
+  ],
+  "keywords": [
+    "cron"
+  ],
+  "license": "LGPL-3.0",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "_release": "0.11.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.11.0",
+    "commit": "d0b633ee482d1d7e0fe9853578c72af541b815e3"
+  },
+  "_source": "https://github.com/azza-bazoo/prettycron.git",
+  "_target": "^0.11.0",
+  "_originalSource": "prettycron"
+}
