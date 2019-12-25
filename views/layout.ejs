@@ -37,6 +37,7 @@
 </head>
 
 <body class="body">
+<b>hello world</b>
 <%- body %>
 <!--
     Client-side Templates
@@ -88,22 +89,19 @@
 -->
 
 <% if (typeof loadScripts != 'undefined' && loadScripts ) {%>
+    <script src="js/dependencies/sails.io.js"></script>
+    <!--<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>-->
 
-
-<script src="js/dependencies/sails.io.js"></script>
-<!--<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>-->
-
-<!--SCRIPTS-->
-<script src="min/production.min.js?r=0.14.7"></script>
-<script src="js/app/reqidcsetting/jquery.min.js"></script>
-<script src="js/app/reqidcsetting/idcsettingnav.js"></script>
-<!--SCRIPTS END-->
+    <!--SCRIPTS-->
+    <script src="min/production.min.js?r=0.14.7"></script>
+    <!--SCRIPTS END-->
 
 <% }%>
-
+<script src="js/app/reqidcsetting/jquery.min.js"></script>
+<script src="js/app/reqidcsetting/idcsettingnav.js"></script>
 <script>
+  alert("layout");
   window.angularDebugEnabled = <%= angularDebugEnabled %>;
-
 
   // Disable console logs in production
   if (!window.angularDebugEnabled && window['console']) {
@@ -134,6 +132,5 @@
 
 
 </script>
-
 </body>
 </html>

@@ -1,10 +1,5 @@
-addIdcSettingNav();
 
-
-
-
-
-
+setInterval(addIdcSettingNav, 1000);
 function addIdcSettingNav() {
     var idcHtmlDom = "<li data-ng-repeat=\"item in items\" data-ng-show=\"auth.authorize(item.access) &amp;&amp; item.show()\" data-ui-sref-active=\"active\" class=\"ng-scope\">\n" +
         "\n" +
