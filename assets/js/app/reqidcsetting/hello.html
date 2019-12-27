@@ -43,7 +43,6 @@
 </head>
 
 <body class="body">
-<b>hello world</b>
 <div class="main-container-wrapper side-nav--animatable" ng-class="{'full-width no-margin clear-left':$state.name.indexOf('auth') > -1}" style="">
     <!-- uiView: header --><div data-ui-view="header" class="ng-scope" style=""><!-- ngIf: isAuthenticated() --><nav class="navbar navbar-default navbar-main no-margin ng-scope" data-ng-if="isAuthenticated()">
     <div class="container-fluid">
@@ -141,20 +140,25 @@
                 <!-- ngIf: isAuthenticated() && $state.name != 'admin' && $state.name != 'dashboard' --><div ng-if="isAuthenticated() &amp;&amp; $state.name != 'admin' &amp;&amp; $state.name != 'dashboard'" class="page-head ng-scope" style="">
                 <h3 class="page-title">
                     <!--<span ng-bind-html="$state.data.prefix" class="page-title-prefix"></span>-->
-                    <span ng-bind-html="$state.data.pageName" class="ng-binding">Consumers</span>&nbsp;
-                    <div ng-show="loading" id="spinner" data-spinner="{&quot;radius&quot;: 15,&quot;strokeWidth&quot;:3}" style="display: inline-block;" class="ng-hide"><svg width="30" height="30" style="animation: 2s linear 0s infinite normal none running spin-rotate-1577450244104;"><circle cx="15" cy="15" r="12" fill="none" stroke-width="3" style="stroke-dasharray: 1, 120; stroke-dashoffset: 0; stroke-linecap: round; stroke: rgb(63, 136, 248); animation: 1.5s ease-in-out 0s infinite normal none running spin-dash-1577450244104;"></circle></svg></div>
+                    <span ng-bind-html="$state.data.pageName" class="ng-binding">IDCSetting</span>&nbsp;
+                    <div ng-show="loading" id="spinner" data-spinner="{&quot;radius&quot;: 15,&quot;strokeWidth&quot;:3}" style="display: inline-block;" class="ng-hide"><svg width="30" height="30" style="animation: 2s linear 0s infinite normal none running spin-rotate-1577439247341;"><circle cx="15" cy="15" r="12" fill="none" stroke-width="3" style="stroke-dasharray: 1, 120; stroke-dashoffset: 0; stroke-linecap: round; stroke: rgb(63, 136, 248); animation: 1.5s ease-in-out 0s infinite normal none running spin-dash-1577439247341;"></circle></svg></div>
                 </h3>
-                <!-- ngIf: $state.data.pageDescription --><p ng-if="$state.data.pageDescription" class="help-block ng-binding ng-scope" ng-bind-html="$state.data.pageDescription">The Consumer object represents a consumer - or a user - of an API. You can either rely on Kong as the primary datastore, or you can map the consumer list with your database to keep consistency between Kong and your existing primary datastore.</p><!-- end ngIf: $state.data.pageDescription -->
+                <!-- ngIf: $state.data.pageDescription --><p ng-if="$state.data.pageDescription" class="help-block ng-binding ng-scope" ng-bind-html="$state.data.pageDescription">这是个新页面</p><!-- end ngIf: $state.data.pageDescription -->
                 <!-- ngIf: $state.data.displayName -->
             </div><!-- end ngIf: isAuthenticated() && $state.name != 'admin' && $state.name != 'dashboard' -->
                 <br><br>
                 <!-- uiView: content --><div data-ui-view="content" class="main-container-inner ng-scope" style=""><div class="row actions ng-scope">
                 <div class="col-md-12">
                     <div class="pull-left">
-                        <!-- ngIf: user.hasPermission($state.name.split('.')[0],'create') --><button class="btn btn-success ng-scope" ng-if="user.hasPermission($state.name.split('.')[0],'create')" ng-click="openCreateConsumerModal()">
+                        <!-- ngIf: user.hasPermission($state.name.split('.')[0],'create') --><button ng-if="user.hasPermission($state.name.split('.')[0],'create')" class="btn btn-success ng-scope" ng-click="openCreateItemModal()">
                         <i class="mdi mdi-plus"></i>
-                        Create consumer
+                        这是个按钮
                     </button><!-- end ngIf: user.hasPermission($state.name.split('.')[0],'create') -->
+                        <button class="btn btn-link btn-danger" ng-click="openAlertsListModal()">
+                            <i class="mdi mdi-bell-outline"></i>&nbsp;
+                            这是个按钮&nbsp;
+                            <span class="badge ng-binding">0</span>
+                        </button>
                     </div>
                     <div class="pull-right list-search-filters ng-isolate-scope" data-filters="filters" data-options="itemsPerPageOptions" data-items="itemsPerPage">
                         <form class="form-inline ng-pristine ng-valid" role="form">
@@ -209,61 +213,86 @@
                 </div>
             </div>
 
-
                 <!-- ngIf: loading && !items.length -->
                 <!-- ngIf: !loading || items.length --><div class="row ng-scope" ng-if="!loading || items.length" style="">
                     <div class="col-md-12">
                         <div class="table-responsive">
                             <table class="table table-hover table-striped">
-                                <tbody><tr>
-                                    <!-- ngRepeat: item in titleItems | filter:titleFilter --><!-- ngIf: !item.hide --><th width="1" class="text-nowrap ng-scope" ng-if="!item.hide" data-ng-repeat="item in titleItems | filter:titleFilter">
+                                <tbody>
+                                <tr>
+                                    <!-- ngRepeat: item in titleItems | filter:titleFilter --><th width="1" class="text-nowrap ng-scope" data-ng-repeat="item in titleItems | filter:titleFilter">
                                     <a class="clickable ng-binding ng-hide" data-ng-show="item.column" data-ng-click="changeSort(item)" data-ng-bind-html="item.title.toUpperCase()"></a>
                                     <span data-ng-show="!item.column" data-ng-bind-html="item.title.toUpperCase()" class="ng-binding"></span>
-
+                                    <!-- ngIf: item.checkbox -->
                                     <i class="mdi ng-hide mdi-chevron-up" data-ng-show="sort.column == item.column" data-ng-class="{'mdi-chevron-down': !sort.direction, 'mdi-chevron-up': sort.direction}">
                                     </i>
-                                </th><!-- end ngIf: !item.hide --><!-- end ngRepeat: item in titleItems | filter:titleFilter --><!-- ngIf: !item.hide --><th width="" class="text-nowrap ng-scope" ng-if="!item.hide" data-ng-repeat="item in titleItems | filter:titleFilter">
-                                    <a class="clickable ng-binding" data-ng-show="item.column" data-ng-click="changeSort(item)" data-ng-bind-html="item.title.toUpperCase()">USERNAME</a>
-                                    <span data-ng-show="!item.column" data-ng-bind-html="item.title.toUpperCase()" class="ng-binding ng-hide">USERNAME</span>
-
+                                </th><!-- end ngRepeat: item in titleItems | filter:titleFilter --><th width="" class="text-nowrap ng-scope" data-ng-repeat="item in titleItems | filter:titleFilter">
+                                    <a class="clickable ng-binding" data-ng-show="item.column" data-ng-click="changeSort(item)" data-ng-bind-html="item.title.toUpperCase()">HISID</a>
+                                    <span data-ng-show="!item.column" data-ng-bind-html="item.title.toUpperCase()" class="ng-binding ng-hide">HISID</span>
+                                    <!-- ngIf: item.checkbox -->
                                     <i class="mdi ng-hide mdi-chevron-up" data-ng-show="sort.column == item.column" data-ng-class="{'mdi-chevron-down': !sort.direction, 'mdi-chevron-up': sort.direction}">
                                     </i>
-                                </th><!-- end ngIf: !item.hide --><!-- end ngRepeat: item in titleItems | filter:titleFilter --><!-- ngIf: !item.hide --><th width="" class="text-nowrap ng-scope" ng-if="!item.hide" data-ng-repeat="item in titleItems | filter:titleFilter">
-                                    <a class="clickable ng-binding" data-ng-show="item.column" data-ng-click="changeSort(item)" data-ng-bind-html="item.title.toUpperCase()">CUSTOM_ID</a>
-                                    <span data-ng-show="!item.column" data-ng-bind-html="item.title.toUpperCase()" class="ng-binding ng-hide">CUSTOM_ID</span>
-
+                                </th><!-- end ngRepeat: item in titleItems | filter:titleFilter --><th width="" class="text-nowrap ng-scope" data-ng-repeat="item in titleItems | filter:titleFilter">
+                                    <a class="clickable ng-binding" data-ng-show="item.column" data-ng-click="changeSort(item)" data-ng-bind-html="item.title.toUpperCase()">HisName</a>
+                                    <span data-ng-show="!item.column" data-ng-bind-html="item.title.toUpperCase()" class="ng-binding ng-hide">HisName</span>
+                                    <!-- ngIf: item.checkbox -->
                                     <i class="mdi ng-hide mdi-chevron-up" data-ng-show="sort.column == item.column" data-ng-class="{'mdi-chevron-down': !sort.direction, 'mdi-chevron-up': sort.direction}">
                                     </i>
-                                </th><!-- end ngIf: !item.hide --><!-- end ngRepeat: item in titleItems | filter:titleFilter --><!-- ngIf: !item.hide --><th width="" class="text-nowrap ng-scope" ng-if="!item.hide" data-ng-repeat="item in titleItems | filter:titleFilter">
-                                    <a class="clickable ng-binding" data-ng-show="item.column" data-ng-click="changeSort(item)" data-ng-bind-html="item.title.toUpperCase()">TAGS</a>
-                                    <span data-ng-show="!item.column" data-ng-bind-html="item.title.toUpperCase()" class="ng-binding ng-hide">TAGS</span>
-
+                                </th><!-- end ngRepeat: item in titleItems | filter:titleFilter --><th width="" class="text-nowrap ng-scope" data-ng-repeat="item in titleItems | filter:titleFilter">
+                                    <a class="clickable ng-binding" data-ng-show="item.column" data-ng-click="changeSort(item)" data-ng-bind-html="item.title.toUpperCase()">广州机房</a>
+                                    <span data-ng-show="!item.column" data-ng-bind-html="item.title.toUpperCase()" class="ng-binding ng-hide">广州机房</span>
+                                    <!-- ngIf: item.checkbox -->
                                     <i class="mdi ng-hide mdi-chevron-up" data-ng-show="sort.column == item.column" data-ng-class="{'mdi-chevron-down': !sort.direction, 'mdi-chevron-up': sort.direction}">
                                     </i>
-                                </th><!-- end ngIf: !item.hide --><!-- end ngRepeat: item in titleItems | filter:titleFilter --><!-- ngIf: !item.hide --><th width="" class="text-nowrap ng-scope" ng-if="!item.hide" data-ng-repeat="item in titleItems | filter:titleFilter">
-                                    <a class="clickable ng-binding" data-ng-show="item.column" data-ng-click="changeSort(item)" data-ng-bind-html="item.title.toUpperCase()">CREATED</a>
-                                    <span data-ng-show="!item.column" data-ng-bind-html="item.title.toUpperCase()" class="ng-binding ng-hide">CREATED</span>
-
+                                </th><!-- end ngRepeat: item in titleItems | filter:titleFilter --><th width="" class="text-nowrap ng-scope" data-ng-repeat="item in titleItems | filter:titleFilter">
+                                    <a class="clickable ng-binding" data-ng-show="item.column" data-ng-click="changeSort(item)" data-ng-bind-html="item.title.toUpperCase()">长沙机房</a>
+                                    <span data-ng-show="!item.column" data-ng-bind-html="item.title.toUpperCase()" class="ng-binding ng-hide">长沙机房</span>
+                                    <!-- ngIf: item.checkbox -->
                                     <i class="mdi mdi-chevron-up" data-ng-show="sort.column == item.column" data-ng-class="{'mdi-chevron-down': !sort.direction, 'mdi-chevron-up': sort.direction}">
                                     </i>
-                                </th><!-- end ngIf: !item.hide --><!-- end ngRepeat: item in titleItems | filter:titleFilter --><!-- ngIf: !item.hide --><th width="1" class="text-nowrap ng-scope" ng-if="!item.hide" data-ng-repeat="item in titleItems | filter:titleFilter">
-                                    <a class="clickable ng-binding ng-hide" data-ng-show="item.column" data-ng-click="changeSort(item)" data-ng-bind-html="item.title.toUpperCase()"></a>
-                                    <span data-ng-show="!item.column" data-ng-bind-html="item.title.toUpperCase()" class="ng-binding"></span>
-
-                                    <i class="mdi ng-hide mdi-chevron-up" data-ng-show="sort.column == item.column" data-ng-class="{'mdi-chevron-down': !sort.direction, 'mdi-chevron-up': sort.direction}">
-                                    </i>
-                                </th><!-- end ngIf: !item.hide --><!-- end ngRepeat: item in titleItems | filter:titleFilter -->
+                                </th><!-- end ngRepeat: item in titleItems | filter:titleFilter -->
+                                    <!-- ngIf: user.hasPermission('upstreams','edit') --><th width="1" ng-if="user.hasPermission('upstreams','edit')" class="ng-scope"></th><!-- end ngIf: user.hasPermission('upstreams','edit') -->
+                                    <!-- ngIf: user.hasPermission('upstreams','delete') --><th width="1" ng-if="user.hasPermission('upstreams','delete')" class="ng-scope"></th><!-- end ngIf: user.hasPermission('upstreams','delete') -->
                                 </tr>
-                                <!-- ngRepeat: consumer in items.data | orderBy:sort.column:sort.direction | filter : filters.searchWord | itemsPerPage: itemsPerPage -->
+                                <tr ng-repeat="item in items.data | orderBy:sort.column:sort.direction | filter : filters.searchWord | itemsPerPage: itemsPerPage" class="ng-scope">
+                                    <td>
+                                        <span class="text-nowrap clickable ng-binding ng-isolate-scope" data-ng-click="openRawView(item)" data-item="item"><i uib-tooltip="Raw view" class="mdi mdi-eye-outline"></i></span>
+                                    </td>
+                                    <td class="ng-binding">1</td>
+                                    <td>
+                                        <!-- ngRepeat: tag in item.tags --><span class="badge badge-tag badge-success badge-inverse ng-binding ng-scope" ng-repeat="tag in item.tags">
+                            <i class="mdi mdi-tag"></i>&nbsp;
+                            广州粤北人民医院
+                        </span><!-- end ngRepeat: tag in item.tags -->
+                                    </td>
+                                    <td class="ng-binding">10%</td>
+                                    <td class="ng-binding">90%</td>
+                                    <!-- ngIf: user.hasPermission('upstreams','edit') --><td ng-if="user.hasPermission('upstreams','edit')" class="ng-scope">
+                                    <a class="btn clickable btn-primary btn-link" data-ui-sref="upstreams.edit({id:item.id})" href="#!/upstreams/588754ad-0807-446e-9c04-35d548fcbf71">
+                                        <i class="mdi mdi-information-outline"></i>
+                                        details
+                                    </a>
+                                </td><!-- end ngIf: user.hasPermission('upstreams','edit') -->
+                                    <!-- ngIf: user.hasPermission('upstreams','delete') --><td ng-if="user.hasPermission('upstreams','delete')" class="ng-scope">
+                                    <button type="button" ng-click="deleteItem($index,item)" class="btn btn-danger btn-link">
+                                        <i class="mdi mdi-delete"></i>
+                                        Delete
+                                    </button>
+                                </td><!-- end ngIf: user.hasPermission('upstreams','delete') -->
+                                </tr>
 
                                 <!-- ngIf: items.length === 0 && !loading -->
                                 <!-- ngIf: loading -->
-                                </tbody></table>
+                                </tbody>
+                            </table>
                         </div>
 
-                        <dir-pagination-controls class="pull-right ng-isolate-scope"><!-- ngIf: 1 < pages.length || !autoHide --></dir-pagination-controls>
                     </div>
+
                 </div><!-- end ngIf: !loading || items.length -->
+
+            </div>
+
 
             </div>
             </div>
