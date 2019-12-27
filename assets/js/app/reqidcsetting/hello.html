@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html id="konga">
+<head>
+    <title>Konga</title>
+    <base href="<%= typeof base_url != 'undefined' ? base_url : '' %>">
+    <!-- Viewport mobile tag for sensible mobile support -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!--
+        Stylesheets and Preprocessors
+        ==============================
+
+        You can always bring in CSS files manually with `<link>` tags, or asynchronously
+        using a solution like AMD (RequireJS).  Or, if you like, you can take advantage
+        of Sails' conventional asset pipeline (boilerplate Gruntfile).
+
+        By default, stylesheets from your `assets/styles` folder are included
+        here automatically (between STYLES and STYLES END). Both CSS (.css) and LESS (.less)
+        are supported. In production, your styles will be minified and concatenated into
+        a single file.
+
+        To customize any part of the built-in behavior, just edit `tasks/pipeline.js`.
+        For example, here are a few things you could do:
+
+            + Change the order of your CSS files
+            + Import stylesheets from other directories
+            + Use a different or additional preprocessor, like SASS, SCSS or Stylus
+    -->
+
+    <!--<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">-->
+
+    <!--STYLES-->
+    <link rel="stylesheet" href="/bower_components/angular-loading-bar/build/loading-bar.css?r=0.14.6">
+    <link rel="stylesheet" href="/bower_components/angular-xeditable/dist/css/xeditable.css?r=0.14.6">
+    <link rel="stylesheet" href="/bower_components/angular-toastr/dist/angular-toastr.css?r=0.14.6">
+    <link rel="stylesheet" href="/bower_components/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.css?r=0.14.6">
+    <link rel="stylesheet" href="/bower_components/angular-spinkit/build/angular-spinkit.min.css?r=0.14.6">
+    <link rel="stylesheet" href="/bower_components/angular-chips/dist/main.css?r=0.14.6">
+    <link rel="stylesheet" href="/bower_components/angular-json-human/dist/angular-json-human.css?r=0.14.6">
+    <link rel="stylesheet" href="/bower_components/mdi/css/materialdesignicons.css?r=0.14.6">
+    <link rel="stylesheet" href="/styles/importer.css?r=0.14.6">
+    <!--STYLES END-->
+</head>
+
+<body class="body">
+<b>hello world</b>
+<div class="main-container-wrapper side-nav--animatable" ng-class="{'full-width no-margin clear-left':$state.name.indexOf('auth') > -1}" style="">
+    <!-- uiView: header --><div data-ui-view="header" class="ng-scope" style=""><!-- ngIf: isAuthenticated() --><nav class="navbar navbar-default navbar-main no-margin ng-scope" data-ng-if="isAuthenticated()">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" ng-click="toggleSideNav()" class="navbar-toggle hidden-md hidden-lg" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand">
+            </a>
+
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li data-ui-sref-active="active" data-ng-show="!auth.isAuthenticated()" class="ng-hide">
+                    <a data-ui-sref="auth.login" href="#!/login">Login</a>
+                </li>
+
+                <!-- NOTIFICATIONS DROPDOWN -->
+                <li data-ng-show="auth.isAuthenticated()" uib-dropdown="" auto-close="outsideClick" keyboard-nav="" class="dropdown">
+                    <a href="" uib-dropdown-toggle="" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false">
+                        <i class="mdi mdi-bell-outline"></i>
+                        <span class="badge badge-danger ng-binding ng-hide" ng-show="notifications &amp;&amp; notifications.length"></span>
+                    </a>
+                    <ul class="dropdown-menu notifications-dropdown-menu animated fadeInDownShort go" uib-dropdown-menu="" role="menu" aria-labelledby="simple-btn-keyboard-nav">
+
+                        <!-- ngIf: !notifications.length --><li role="menuitem" ng-if="!notifications.length" class="ng-scope">
+                        <a>
+                            There are no notifications at this point...
+                        </a>
+                    </li><!-- end ngIf: !notifications.length -->
+                        <!-- ngRepeat: notification in notifications -->
+
+                    </ul>
+                </li>
+                <!-- END NOTIFICATIONS DROPDOWN -->
+
+                <!-- PROFILE DROPDOWN -->
+                <li data-ng-show="auth.isAuthenticated() &amp;&amp; !no_auth" uib-dropdown="" keyboard-nav="" class="dropdown">
+                    <a class="nav-auth-img-container dropdown-toggle" uib-dropdown-toggle="" aria-haspopup="true" aria-expanded="false">
+                        <img class="nav-auth-img" ng-src="images/user-icon.png" src="images/user-icon.png">
+                        &nbsp;
+                        <span class="greeting visible-md-inline visible-lg-inline ng-binding">Hello, konga</span>
+                        <span class="caret"></span>
+                    </a>
+                    <!-- ngIf: !no_auth --><ul class="dropdown-menu animated fadeInDownShort go ng-scope" ng-if="!no_auth" uib-dropdown-menu="" role="menu" aria-labelledby="simple-btn-keyboard-nav">
+
+                    <li role="menuitem">
+                        <a data-ui-sref="users.show({id:user().id})" href="#!/users/1">
+                            <i class="mdi mdi-account-outline"></i>
+                            Profile
+                        </a>
+                    </li>
+                    <!-- ngIf: user().admin --><li role="menuitem" ng-if="user().admin" class="ng-scope">
+                    <a data-ui-sref="users" href="#!/users">
+                        <i class="mdi mdi-account-multiple"></i>
+                        Users
+                    </a>
+                </li><!-- end ngIf: user().admin -->
+                    <li role="menuitem">
+                        <!-- ngIf: user().admin --><a data-ui-sref="settings" ng-if="user().admin" class="ng-scope" href="#!/settings">
+                        <i class="mdi mdi-settings"></i>
+                        Settings
+                    </a><!-- end ngIf: user().admin -->
+                    </li>
+                    <li class="divider"></li>
+                    <li role="menuitem">
+                        <a data-ng-click="logout()">
+                            <i class="mdi mdi-logout-variant"></i>
+                            Logout
+                        </a>
+                    </li>
+                </ul><!-- end ngIf: !no_auth -->
+
+                </li>
+                <!-- END PROFILE DROPDOWN -->
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav><!-- end ngIf: isAuthenticated() -->
+
+
+
+</div>
+    <!-- ngIf: $stateParams.activated -->
+    <div class="main-container-wrapper-static">
+        <div class="container-fluid">
+
+            <div class="main-container container">
+                <!-- ngIf: isAuthenticated() && $state.name != 'admin' && $state.name != 'dashboard' --><div ng-if="isAuthenticated() &amp;&amp; $state.name != 'admin' &amp;&amp; $state.name != 'dashboard'" class="page-head ng-scope" style="">
+                <h3 class="page-title">
+                    <!--<span ng-bind-html="$state.data.prefix" class="page-title-prefix"></span>-->
+                    <span ng-bind-html="$state.data.pageName" class="ng-binding">Consumers</span>&nbsp;
+                    <div ng-show="loading" id="spinner" data-spinner="{&quot;radius&quot;: 15,&quot;strokeWidth&quot;:3}" style="display: inline-block;" class="ng-hide"><svg width="30" height="30" style="animation: 2s linear 0s infinite normal none running spin-rotate-1577450244104;"><circle cx="15" cy="15" r="12" fill="none" stroke-width="3" style="stroke-dasharray: 1, 120; stroke-dashoffset: 0; stroke-linecap: round; stroke: rgb(63, 136, 248); animation: 1.5s ease-in-out 0s infinite normal none running spin-dash-1577450244104;"></circle></svg></div>
+                </h3>
+                <!-- ngIf: $state.data.pageDescription --><p ng-if="$state.data.pageDescription" class="help-block ng-binding ng-scope" ng-bind-html="$state.data.pageDescription">The Consumer object represents a consumer - or a user - of an API. You can either rely on Kong as the primary datastore, or you can map the consumer list with your database to keep consistency between Kong and your existing primary datastore.</p><!-- end ngIf: $state.data.pageDescription -->
+                <!-- ngIf: $state.data.displayName -->
+            </div><!-- end ngIf: isAuthenticated() && $state.name != 'admin' && $state.name != 'dashboard' -->
+                <br><br>
+                <!-- uiView: content --><div data-ui-view="content" class="main-container-inner ng-scope" style=""><div class="row actions ng-scope">
+                <div class="col-md-12">
+                    <div class="pull-left">
+                        <!-- ngIf: user.hasPermission($state.name.split('.')[0],'create') --><button class="btn btn-success ng-scope" ng-if="user.hasPermission($state.name.split('.')[0],'create')" ng-click="openCreateConsumerModal()">
+                        <i class="mdi mdi-plus"></i>
+                        Create consumer
+                    </button><!-- end ngIf: user.hasPermission($state.name.split('.')[0],'create') -->
+                    </div>
+                    <div class="pull-right list-search-filters ng-isolate-scope" data-filters="filters" data-options="itemsPerPageOptions" data-items="itemsPerPage">
+                        <form class="form-inline ng-pristine ng-valid" role="form">
+                            <div class="form-group">
+                                <div class="input-group dropdown" uib-dropdown="" is-open="status.isopen">
+                <span class="input-group-addon dropdown-toggle" uib-dropdown-toggle="" aria-haspopup="true" aria-expanded="false">
+                    <i class="mdi mdi-magnify"></i>
+                </span>
+                                    <input class="form-control ng-pristine ng-untouched ng-valid ng-empty" type="text" placeholder="search..." data-ng-model-options="{debounce: 500}" data-ng-model="filters.searchWord">
+                                    <!--<span class="input-group-addon clickable">-->
+                                    <!--<button type="button" class="btn btn-primary btn-sm" data-ng-click="search()">-->
+                                    <!--Search-->
+                                    <!--</button>-->
+
+                                    <!--</span>-->
+
+                                    <!--<ul uib-dropdown-menu class="dropdown-menu animated fadeInDownShort go dropdown-menu-arrow" role="menu">-->
+                                    <!--<li class="title padding-left">Affected columns</li>-->
+                                    <!--<li class="divider"></li>-->
+                                    <!--<li data-ng-repeat="column in filters.columns | filter: inSearch">-->
+                                    <!--<a  data-ng-click="column.inSearch = !column.inSearch; $event.preventDefault(); $event.stopPropagation();">-->
+                                    <!--<i class="material-icons"-->
+                                    <!--data-ng-class="{'opaque': !column.inSearch}"-->
+                                    <!--&gt;done</i>-->
+
+
+                                    <!--<span-->
+                                    <!--data-ng-if="column.titleSearch"-->
+                                    <!--data-ng-bind="column.titleSearch"-->
+                                    <!--&gt;</span>-->
+
+                                    <!--<span-->
+                                    <!--data-ng-if="!column.titleSearch"-->
+                                    <!--data-ng-bind="column.title"-->
+                                    <!--&gt;</span>-->
+                                    <!--</a>-->
+                                    <!--</li>-->
+                                    <!--</ul>-->
+
+
+                                </div>
+                                <div class="input-group">
+                <span class="input-group-addon">
+                    Results :
+                </span>
+                                    <select class="form-control ng-pristine ng-untouched ng-valid ng-not-empty" data-ng-model="items" data-ng-options="page for page in options"><option label="10" value="number:10">10</option><option label="25" value="number:25" selected="selected">25</option><option label="50" value="number:50">50</option><option label="100" value="number:100">100</option></select>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+
+                <!-- ngIf: loading && !items.length -->
+                <!-- ngIf: !loading || items.length --><div class="row ng-scope" ng-if="!loading || items.length" style="">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table class="table table-hover table-striped">
+                                <tbody><tr>
+                                    <!-- ngRepeat: item in titleItems | filter:titleFilter --><!-- ngIf: !item.hide --><th width="1" class="text-nowrap ng-scope" ng-if="!item.hide" data-ng-repeat="item in titleItems | filter:titleFilter">
+                                    <a class="clickable ng-binding ng-hide" data-ng-show="item.column" data-ng-click="changeSort(item)" data-ng-bind-html="item.title.toUpperCase()"></a>
+                                    <span data-ng-show="!item.column" data-ng-bind-html="item.title.toUpperCase()" class="ng-binding"></span>
+
+                                    <i class="mdi ng-hide mdi-chevron-up" data-ng-show="sort.column == item.column" data-ng-class="{'mdi-chevron-down': !sort.direction, 'mdi-chevron-up': sort.direction}">
+                                    </i>
+                                </th><!-- end ngIf: !item.hide --><!-- end ngRepeat: item in titleItems | filter:titleFilter --><!-- ngIf: !item.hide --><th width="" class="text-nowrap ng-scope" ng-if="!item.hide" data-ng-repeat="item in titleItems | filter:titleFilter">
+                                    <a class="clickable ng-binding" data-ng-show="item.column" data-ng-click="changeSort(item)" data-ng-bind-html="item.title.toUpperCase()">USERNAME</a>
+                                    <span data-ng-show="!item.column" data-ng-bind-html="item.title.toUpperCase()" class="ng-binding ng-hide">USERNAME</span>
+
+                                    <i class="mdi ng-hide mdi-chevron-up" data-ng-show="sort.column == item.column" data-ng-class="{'mdi-chevron-down': !sort.direction, 'mdi-chevron-up': sort.direction}">
+                                    </i>
+                                </th><!-- end ngIf: !item.hide --><!-- end ngRepeat: item in titleItems | filter:titleFilter --><!-- ngIf: !item.hide --><th width="" class="text-nowrap ng-scope" ng-if="!item.hide" data-ng-repeat="item in titleItems | filter:titleFilter">
+                                    <a class="clickable ng-binding" data-ng-show="item.column" data-ng-click="changeSort(item)" data-ng-bind-html="item.title.toUpperCase()">CUSTOM_ID</a>
+                                    <span data-ng-show="!item.column" data-ng-bind-html="item.title.toUpperCase()" class="ng-binding ng-hide">CUSTOM_ID</span>
+
+                                    <i class="mdi ng-hide mdi-chevron-up" data-ng-show="sort.column == item.column" data-ng-class="{'mdi-chevron-down': !sort.direction, 'mdi-chevron-up': sort.direction}">
+                                    </i>
+                                </th><!-- end ngIf: !item.hide --><!-- end ngRepeat: item in titleItems | filter:titleFilter --><!-- ngIf: !item.hide --><th width="" class="text-nowrap ng-scope" ng-if="!item.hide" data-ng-repeat="item in titleItems | filter:titleFilter">
+                                    <a class="clickable ng-binding" data-ng-show="item.column" data-ng-click="changeSort(item)" data-ng-bind-html="item.title.toUpperCase()">TAGS</a>
+                                    <span data-ng-show="!item.column" data-ng-bind-html="item.title.toUpperCase()" class="ng-binding ng-hide">TAGS</span>
+
+                                    <i class="mdi ng-hide mdi-chevron-up" data-ng-show="sort.column == item.column" data-ng-class="{'mdi-chevron-down': !sort.direction, 'mdi-chevron-up': sort.direction}">
+                                    </i>
+                                </th><!-- end ngIf: !item.hide --><!-- end ngRepeat: item in titleItems | filter:titleFilter --><!-- ngIf: !item.hide --><th width="" class="text-nowrap ng-scope" ng-if="!item.hide" data-ng-repeat="item in titleItems | filter:titleFilter">
+                                    <a class="clickable ng-binding" data-ng-show="item.column" data-ng-click="changeSort(item)" data-ng-bind-html="item.title.toUpperCase()">CREATED</a>
+                                    <span data-ng-show="!item.column" data-ng-bind-html="item.title.toUpperCase()" class="ng-binding ng-hide">CREATED</span>
+
+                                    <i class="mdi mdi-chevron-up" data-ng-show="sort.column == item.column" data-ng-class="{'mdi-chevron-down': !sort.direction, 'mdi-chevron-up': sort.direction}">
+                                    </i>
+                                </th><!-- end ngIf: !item.hide --><!-- end ngRepeat: item in titleItems | filter:titleFilter --><!-- ngIf: !item.hide --><th width="1" class="text-nowrap ng-scope" ng-if="!item.hide" data-ng-repeat="item in titleItems | filter:titleFilter">
+                                    <a class="clickable ng-binding ng-hide" data-ng-show="item.column" data-ng-click="changeSort(item)" data-ng-bind-html="item.title.toUpperCase()"></a>
+                                    <span data-ng-show="!item.column" data-ng-bind-html="item.title.toUpperCase()" class="ng-binding"></span>
+
+                                    <i class="mdi ng-hide mdi-chevron-up" data-ng-show="sort.column == item.column" data-ng-class="{'mdi-chevron-down': !sort.direction, 'mdi-chevron-up': sort.direction}">
+                                    </i>
+                                </th><!-- end ngIf: !item.hide --><!-- end ngRepeat: item in titleItems | filter:titleFilter -->
+                                </tr>
+                                <!-- ngRepeat: consumer in items.data | orderBy:sort.column:sort.direction | filter : filters.searchWord | itemsPerPage: itemsPerPage -->
+
+                                <!-- ngIf: items.length === 0 && !loading -->
+                                <!-- ngIf: loading -->
+                                </tbody></table>
+                        </div>
+
+                        <dir-pagination-controls class="pull-right ng-isolate-scope"><!-- ngIf: 1 < pages.length || !autoHide --></dir-pagination-controls>
+                    </div>
+                </div><!-- end ngIf: !loading || items.length -->
+
+            </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- uiView: footer --><div data-ui-view="footer" class="ng-scope"><!-- ngIf: isAuthenticated() --><footer ng-if="isAuthenticated()" class="ng-scope">
+    <div class="navbar navbar-footer navbar-fixed-bottom">
+        <div class="container-fluid">
+            <ul class="nav navbar-nav navbar-left no-margin">
+                <li>
+                    <a>
+                        <strong class="text-success ng-binding">KONGA 0.14.7</strong>
+                    </a>
+                </li>
+                <li class="hidden-xs">
+                    <a href="https://github.com/pantsel/konga" target="_blank">
+                        <i class="fa fa-github"></i>GitHub
+                    </a>
+                </li>
+
+                <li class="hidden-xs">
+                    <a href="https://github.com/pantsel/konga/issues" target="_blank">
+                        <i class="mdi mdi-18px mdi-bug"></i>Issues
+                    </a>
+                </li>
+                <li>
+                    <a href="https://buymeacoff.ee/F1aRIj8CG" target="_blank">
+                        <i class="mdi mdi-18px mdi-coffee"></i>
+                        Support the project
+                    </a>
+                </li>
+
+            </ul>
+            <!-- ngIf: user.hasPermission('connections','read') --><ul class="nav navbar-nav navbar-right hidden-xs ng-scope" style="margin-right: 5px" ng-if="user.hasPermission('connections','read')">
+            <li data-ng-show="isAuthenticated()" uib-dropdown="" is-open="isOpen" auto-close="disabled" keyboard-nav="" class="dropdown">
+                <a class="clickable dropdown-toggle" uib-dropdown-toggle="" aria-haspopup="true" aria-expanded="false">
+                    <i class="mdi mdi-18px mdi-cast-connected"></i>
+                    Connected to
+                    <strong class="ng-binding">dev-kong</strong>
+                </a>
+                <ul class="dropdown-menu animated fadeInUpShort go panel panel-primary-outside" uib-dropdown-menu="" role="menu" aria-labelledby="simple-btn-keyboard-nav">
+                    <li role="menuitem" style="background-color: #f4f4f4">
+
+                        <a>
+
+                            Choose connection
+                            <i class="mdi mdi-close pull-right clickable" data-ng-click="isOpen = !isOpen"></i>
+                        </a>
+                    </li>
+                    <li role="menuitem">
+                        <table class="table table-hover no-margin" style="width:300px">
+                            <tbody><!-- ngRepeat: connection in connections --><tr data-ng-repeat="connection in connections" class="clickable ng-scope" data-ng-click="activateConnection(connection)" style="">
+                                <td>
+                                    <!-- ngIf: connection.checkingConnection -->
+                                    <!-- ngIf: !connection.checkingConnection --><div data-ng-if="!connection.checkingConnection" class="ng-scope">
+                                    <i class="mdi text-primary mdi-checkbox-blank-outline" ng-class="user.node.id == connection.id ? 'mdi-checkbox-marked-outline' : 'mdi-checkbox-blank-outline'"></i>
+                                </div><!-- end ngIf: !connection.checkingConnection -->
+                                </td>
+                                <td><strong class="ng-binding">dev-kong</strong></td>
+                                <td class="ng-binding">v1.4.0</td>
+                            </tr><!-- end ngRepeat: connection in connections --><tr data-ng-repeat="connection in connections" class="clickable ng-scope" data-ng-click="activateConnection(connection)">
+                                <td>
+                                    <!-- ngIf: connection.checkingConnection -->
+                                    <!-- ngIf: !connection.checkingConnection --><div data-ng-if="!connection.checkingConnection" class="ng-scope">
+                                    <i class="mdi text-primary mdi-checkbox-blank-outline" ng-class="user.node.id == connection.id ? 'mdi-checkbox-marked-outline' : 'mdi-checkbox-blank-outline'"></i>
+                                </div><!-- end ngIf: !connection.checkingConnection -->
+                                </td>
+                                <td><strong class="ng-binding">dev-kong</strong></td>
+                                <td class="ng-binding">v1.4.0</td>
+                            </tr><!-- end ngRepeat: connection in connections --><tr data-ng-repeat="connection in connections" class="clickable ng-scope" data-ng-click="activateConnection(connection)">
+                                <td>
+                                    <!-- ngIf: connection.checkingConnection -->
+                                    <!-- ngIf: !connection.checkingConnection --><div data-ng-if="!connection.checkingConnection" class="ng-scope">
+                                    <i class="mdi text-primary mdi-checkbox-marked-outline" ng-class="user.node.id == connection.id ? 'mdi-checkbox-marked-outline' : 'mdi-checkbox-blank-outline'"></i>
+                                </div><!-- end ngIf: !connection.checkingConnection -->
+                                </td>
+                                <td><strong class="ng-binding">dev-kong</strong></td>
+                                <td class="ng-binding">v1.4.0</td>
+                            </tr><!-- end ngRepeat: connection in connections -->
+                            </tbody></table>
+                    </li>
+
+                </ul>
+
+            </li>
+            <!--<li data-ng-show="isAuthenticated()">-->
+            <!--<a class="clickable" data-ng-click="showConnectionsModal()">-->
+            <!--<i class="material-icons">cast_connected</i>-->
+            <!--{{user.node.kong_admin_url}}-->
+            <!--|-->
+            <!--Kong version : <strong>{{Gateway.version}}</strong>-->
+            <!--</a>-->
+            <!--</li>-->
+        </ul><!-- end ngIf: user.hasPermission('connections','read') -->
+        </div>
+    </div>
+</footer><!-- end ngIf: isAuthenticated() --></div>
+</div>
+<!--
+    Client-side Templates
+    ========================
+
+    HTML templates are important prerequisites of modern, rich client applications.
+    To work their magic, frameworks like Backbone, Angular, Ember, and Knockout require
+    that you load these templates client-side.
+
+    By default, your Gruntfile is configured to automatically load and precompile
+    client-side JST templates in your `assets/templates` folder, then
+    include them here automatically (between TEMPLATES and TEMPLATES END).
+
+    To customize this behavior to fit your needs, just edit `tasks/pipeline.js`.
+    For example, here are a few things you could do:
+
+        + Import templates from other directories
+        + Use a different template engine (handlebars, jade, dust, etc.)
+        + Internationalize your client-side templates using a server-side
+          stringfile before they're served.
+-->
+
+<!--TEMPLATES-->
+
+<!--TEMPLATES END-->
+
+
+<!--
+
+  Client-side Javascript
+  ========================
+
+  You can always bring in JS files manually with `script` tags, or asynchronously
+  on the client using a solution like AMD (RequireJS).  Or, if you like, you can
+  take advantage of Sails' conventional asset pipeline (boilerplate Gruntfile).
+
+  By default, files in your `assets/js` folder are included here
+  automatically (between SCRIPTS and SCRIPTS END).  Both JavaScript (.js) and
+  CoffeeScript (.coffee) are supported. In production, your scripts will be minified
+  and concatenated into a single file.
+
+  To customize any part of the built-in behavior, just edit `tasks/pipeline.js`.
+  For example, here are a few things you could do:
+
+      + Change the order of your scripts
+      + Import scripts from other directories
+      + Use a different preprocessor, like TypeScript
+
+-->
+
+<script src="js/dependencies/sails.io.js"></script>
+<script src="min/production.min.js?r=0.14.7"></script>
+
+</body>
+</html>
