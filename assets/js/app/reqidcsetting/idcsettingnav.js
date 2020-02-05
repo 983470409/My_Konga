@@ -14,13 +14,11 @@ function addIdcSettingNav() {
             "                <!-- ngIf: !item.state -->\n" +
             "            </li>"
         $(".side-nav__content").append(idcHtmlDom);
-        alert("_expose-aside");
     }
 }
 
 $('body').on('click', '.idcsetting', function () {
     var table =
-
         "                    <!-- ngIf: isAuthenticated() && $state.name != 'admin' && $state.name != 'dashboard' --><div ng-if=\"isAuthenticated() &amp;&amp; $state.name != 'admin' &amp;&amp; $state.name != 'dashboard'\" class=\"page-head ng-scope\" style=\"\">\n" +
         "                        <h3 class=\"page-title\">\n" +
         "                            <!--<span ng-bind-html=\"$state.data.prefix\" class=\"page-title-prefix\"></span>-->\n" +
@@ -36,13 +34,8 @@ $('body').on('click', '.idcsetting', function () {
         "        <div class=\"pull-left\">\n" +
         "            <!-- ngIf: user.hasPermission($state.name.split('.')[0],'create') --><button ng-if=\"user.hasPermission($state.name.split('.')[0],'create')\" class=\"btn btn-success ng-scope\" ng-click=\"openCreateItemModal()\">\n" +
         "                <i class=\"mdi mdi-plus\"></i>\n" +
-        "                这是个按钮\n" +
+        "                新增请求调度配置\n" +
         "            </button><!-- end ngIf: user.hasPermission($state.name.split('.')[0],'create') -->\n" +
-        "            <button class=\"btn btn-link btn-danger\" ng-click=\"openAlertsListModal()\">\n" +
-        "                <i class=\"mdi mdi-bell-outline\"></i>&nbsp;\n" +
-        "                这是个按钮&nbsp;\n" +
-        "                <span class=\"badge ng-binding\">0</span>\n" +
-        "            </button>\n" +
         "        </div>\n" +
         "        <div class=\"pull-right list-search-filters ng-isolate-scope\" data-filters=\"filters\" data-options=\"itemsPerPageOptions\" data-items=\"itemsPerPage\">\n" +
         "    <form class=\"form-inline ng-pristine ng-valid\" role=\"form\">\n" +
@@ -52,37 +45,6 @@ $('body').on('click', '.idcsetting', function () {
         "                    <i class=\"mdi mdi-magnify\"></i>\n" +
         "                </span>\n" +
         "                <input class=\"form-control ng-pristine ng-untouched ng-valid ng-empty\" type=\"text\" placeholder=\"search...\" data-ng-model-options=\"{debounce: 500}\" data-ng-model=\"filters.searchWord\">\n" +
-        "                <!--<span class=\"input-group-addon clickable\">-->\n" +
-        "                    <!--<button type=\"button\" class=\"btn btn-primary btn-sm\" data-ng-click=\"search()\">-->\n" +
-        "                        <!--Search-->\n" +
-        "                    <!--</button>-->\n" +
-        "\n" +
-        "                <!--</span>-->\n" +
-        "\n" +
-        "                <!--<ul uib-dropdown-menu class=\"dropdown-menu animated fadeInDownShort go dropdown-menu-arrow\" role=\"menu\">-->\n" +
-        "                    <!--<li class=\"title padding-left\">Affected columns</li>-->\n" +
-        "                    <!--<li class=\"divider\"></li>-->\n" +
-        "                    <!--<li data-ng-repeat=\"column in filters.columns | filter: inSearch\">-->\n" +
-        "                        <!--<a  data-ng-click=\"column.inSearch = !column.inSearch; $event.preventDefault(); $event.stopPropagation();\">-->\n" +
-        "                            <!--<i class=\"material-icons\"-->\n" +
-        "                                <!--data-ng-class=\"{'opaque': !column.inSearch}\"-->\n" +
-        "                            <!--&gt;done</i>-->\n" +
-        "\n" +
-        "\n" +
-        "                            <!--<span-->\n" +
-        "                                <!--data-ng-if=\"column.titleSearch\"-->\n" +
-        "                                <!--data-ng-bind=\"column.titleSearch\"-->\n" +
-        "                            <!--&gt;</span>-->\n" +
-        "\n" +
-        "                            <!--<span-->\n" +
-        "                                <!--data-ng-if=\"!column.titleSearch\"-->\n" +
-        "                                <!--data-ng-bind=\"column.title\"-->\n" +
-        "                            <!--&gt;</span>-->\n" +
-        "                        <!--</a>-->\n" +
-        "                    <!--</li>-->\n" +
-        "                <!--</ul>-->\n" +
-        "\n" +
-        "\n" +
         "            </div>\n" +
         "            <div class=\"input-group\">\n" +
         "                <span class=\"input-group-addon\">\n" +
@@ -105,35 +67,19 @@ $('body').on('click', '.idcsetting', function () {
         "                <tbody>\n" +
         "\t\t\t\t<tr>\n" +
         "                    <!-- ngRepeat: item in titleItems | filter:titleFilter --><th width=\"1\" class=\"text-nowrap ng-scope\" data-ng-repeat=\"item in titleItems | filter:titleFilter\">\n" +
-        "                        <a class=\"clickable ng-binding ng-hide\" data-ng-show=\"item.column\" data-ng-click=\"changeSort(item)\" data-ng-bind-html=\"item.title.toUpperCase()\"></a>\n" +
         "                        <span data-ng-show=\"!item.column\" data-ng-bind-html=\"item.title.toUpperCase()\" class=\"ng-binding\"></span>\n" +
         "                        <!-- ngIf: item.checkbox -->\n" +
-        "                        <i class=\"mdi ng-hide mdi-chevron-up\" data-ng-show=\"sort.column == item.column\" data-ng-class=\"{'mdi-chevron-down': !sort.direction, 'mdi-chevron-up': sort.direction}\">\n" +
-        "                        </i>\n" +
         "                    </th><!-- end ngRepeat: item in titleItems | filter:titleFilter --><th width=\"\" class=\"text-nowrap ng-scope\" data-ng-repeat=\"item in titleItems | filter:titleFilter\">\n" +
         "                        <a class=\"clickable ng-binding\" data-ng-show=\"item.column\" data-ng-click=\"changeSort(item)\" data-ng-bind-html=\"item.title.toUpperCase()\">HISID</a>\n" +
-        "                        <span data-ng-show=\"!item.column\" data-ng-bind-html=\"item.title.toUpperCase()\" class=\"ng-binding ng-hide\">HISID</span>\n" +
-        "                        <!-- ngIf: item.checkbox -->\n" +
-        "                        <i class=\"mdi ng-hide mdi-chevron-up\" data-ng-show=\"sort.column == item.column\" data-ng-class=\"{'mdi-chevron-down': !sort.direction, 'mdi-chevron-up': sort.direction}\">\n" +
-        "                        </i>\n" +
+        "                        <span data-ng-show=\"!item.column\" data-ng-bind-html=\"item.title.toUpperCase()\" class=\"ng-binding ng-hide\">HisID</span>\n" +
         "                    </th><!-- end ngRepeat: item in titleItems | filter:titleFilter --><th width=\"\" class=\"text-nowrap ng-scope\" data-ng-repeat=\"item in titleItems | filter:titleFilter\">\n" +
-        "                        <a class=\"clickable ng-binding\" data-ng-show=\"item.column\" data-ng-click=\"changeSort(item)\" data-ng-bind-html=\"item.title.toUpperCase()\">HisName</a>\n" +
         "                        <span data-ng-show=\"!item.column\" data-ng-bind-html=\"item.title.toUpperCase()\" class=\"ng-binding ng-hide\">HisName</span>\n" +
-        "                        <!-- ngIf: item.checkbox -->\n" +
-        "                        <i class=\"mdi ng-hide mdi-chevron-up\" data-ng-show=\"sort.column == item.column\" data-ng-class=\"{'mdi-chevron-down': !sort.direction, 'mdi-chevron-up': sort.direction}\">\n" +
-        "                        </i>\n" +
         "                    </th><!-- end ngRepeat: item in titleItems | filter:titleFilter --><th width=\"\" class=\"text-nowrap ng-scope\" data-ng-repeat=\"item in titleItems | filter:titleFilter\">\n" +
-        "                        <a class=\"clickable ng-binding\" data-ng-show=\"item.column\" data-ng-click=\"changeSort(item)\" data-ng-bind-html=\"item.title.toUpperCase()\">广州机房</a>\n" +
         "                        <span data-ng-show=\"!item.column\" data-ng-bind-html=\"item.title.toUpperCase()\" class=\"ng-binding ng-hide\">广州机房</span>\n" +
         "                        <!-- ngIf: item.checkbox -->\n" +
-        "                        <i class=\"mdi ng-hide mdi-chevron-up\" data-ng-show=\"sort.column == item.column\" data-ng-class=\"{'mdi-chevron-down': !sort.direction, 'mdi-chevron-up': sort.direction}\">\n" +
-        "                        </i>\n" +
         "                    </th><!-- end ngRepeat: item in titleItems | filter:titleFilter --><th width=\"\" class=\"text-nowrap ng-scope\" data-ng-repeat=\"item in titleItems | filter:titleFilter\">\n" +
-        "                        <a class=\"clickable ng-binding\" data-ng-show=\"item.column\" data-ng-click=\"changeSort(item)\" data-ng-bind-html=\"item.title.toUpperCase()\">长沙机房</a>\n" +
         "                        <span data-ng-show=\"!item.column\" data-ng-bind-html=\"item.title.toUpperCase()\" class=\"ng-binding ng-hide\">长沙机房</span>\n" +
         "                        <!-- ngIf: item.checkbox -->\n" +
-        "                        <i class=\"mdi mdi-chevron-up\" data-ng-show=\"sort.column == item.column\" data-ng-class=\"{'mdi-chevron-down': !sort.direction, 'mdi-chevron-up': sort.direction}\">\n" +
-        "                        </i>\n" +
         "                    </th><!-- end ngRepeat: item in titleItems | filter:titleFilter -->\n" +
         "                    <!-- ngIf: user.hasPermission('upstreams','edit') --><th width=\"1\" ng-if=\"user.hasPermission('upstreams','edit')\" class=\"ng-scope\"></th><!-- end ngIf: user.hasPermission('upstreams','edit') -->\n" +
         "                    <!-- ngIf: user.hasPermission('upstreams','delete') --><th width=\"1\" ng-if=\"user.hasPermission('upstreams','delete')\" class=\"ng-scope\"></th><!-- end ngIf: user.hasPermission('upstreams','delete') -->\n" +

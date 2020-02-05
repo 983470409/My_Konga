@@ -62,16 +62,14 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
-                <li data-ui-sref-active="active" data-ng-show="!auth.isAuthenticated()" class="ng-hide">
-                    <a data-ui-sref="auth.login" href="#!/login">Login</a>
-                </li>
+
 
                 <!-- NOTIFICATIONS DROPDOWN -->
                 <li data-ng-show="auth.isAuthenticated()" uib-dropdown="" auto-close="outsideClick" keyboard-nav="" class="dropdown">
-                    <a href="" uib-dropdown-toggle="" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false">
-                        <i class="mdi mdi-bell-outline"></i>
-                        <span class="badge badge-danger ng-binding ng-hide" ng-show="notifications &amp;&amp; notifications.length"></span>
-                    </a>
+                    <!--<a href="" uib-dropdown-toggle="" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false">-->
+                        <!--<i class="mdi mdi-bell-outline"></i>-->
+                        <!--<span class="badge badge-danger ng-binding ng-hide" ng-show="notifications &amp;&amp; notifications.length"></span>-->
+                    <!--</a>-->
                     <ul class="dropdown-menu notifications-dropdown-menu animated fadeInDownShort go" uib-dropdown-menu="" role="menu" aria-labelledby="simple-btn-keyboard-nav">
 
                         <!-- ngIf: !notifications.length --><li role="menuitem" ng-if="!notifications.length" class="ng-scope">
@@ -87,12 +85,12 @@
 
                 <!-- PROFILE DROPDOWN -->
                 <li data-ng-show="auth.isAuthenticated() &amp;&amp; !no_auth" uib-dropdown="" keyboard-nav="" class="dropdown">
-                    <a class="nav-auth-img-container dropdown-toggle" uib-dropdown-toggle="" aria-haspopup="true" aria-expanded="false">
-                        <img class="nav-auth-img" ng-src="images/user-icon.png" src="images/user-icon.png">
-                        &nbsp;
-                        <span class="greeting visible-md-inline visible-lg-inline ng-binding">Hello, konga</span>
-                        <span class="caret"></span>
-                    </a>
+                    <!--<a class="nav-auth-img-container dropdown-toggle" uib-dropdown-toggle="" aria-haspopup="true" aria-expanded="false">-->
+                        <!--<img class="nav-auth-img" ng-src="images/user-icon.png" src="images/user-icon.png">-->
+                        <!--&nbsp;-->
+                        <!--<span class="greeting visible-md-inline visible-lg-inline ng-binding">Hello, konga</span>-->
+                        <!--<span class="caret"></span>-->
+                    <!--</a>-->
                     <!-- ngIf: !no_auth --><ul class="dropdown-menu animated fadeInDownShort go ng-scope" ng-if="!no_auth" uib-dropdown-menu="" role="menu" aria-labelledby="simple-btn-keyboard-nav">
 
                     <li role="menuitem">
@@ -150,14 +148,13 @@
                 <!-- uiView: content --><div data-ui-view="content" class="main-container-inner ng-scope" style=""><div class="row actions ng-scope">
                 <div class="col-md-12">
                     <div class="pull-left">
-                        <!-- ngIf: user.hasPermission($state.name.split('.')[0],'create') --><button ng-if="user.hasPermission($state.name.split('.')[0],'create')" class="btn btn-success ng-scope" ng-click="openCreateItemModal()">
+                        <!-- ngIf: user.hasPermission($state.name.split('.')[0],'create') --><button class="btn btn-success ng-scope btnaddReq" >
                         <i class="mdi mdi-plus"></i>
-                        这是个按钮
+                        机房调度
                     </button><!-- end ngIf: user.hasPermission($state.name.split('.')[0],'create') -->
-                        <button class="btn btn-link btn-danger" ng-click="openAlertsListModal()">
-                            <i class="mdi mdi-bell-outline"></i>&nbsp;
-                            这是个按钮&nbsp;
-                            <span class="badge ng-binding">0</span>
+                        <button class="btn btn-link btn-danger btn-addIDC">
+                            &nbsp;
+                            新建机房&nbsp;
                         </button>
                     </div>
                     <div class="pull-right list-search-filters ng-isolate-scope" data-filters="filters" data-options="itemsPerPageOptions" data-items="itemsPerPage">
@@ -228,28 +225,16 @@
                                     </i>
                                 </th><!-- end ngRepeat: item in titleItems | filter:titleFilter --><th width="" class="text-nowrap ng-scope" data-ng-repeat="item in titleItems | filter:titleFilter">
                                     <a class="clickable ng-binding" data-ng-show="item.column" data-ng-click="changeSort(item)" data-ng-bind-html="item.title.toUpperCase()">HISID</a>
-                                    <span data-ng-show="!item.column" data-ng-bind-html="item.title.toUpperCase()" class="ng-binding ng-hide">HISID</span>
-                                    <!-- ngIf: item.checkbox -->
-                                    <i class="mdi ng-hide mdi-chevron-up" data-ng-show="sort.column == item.column" data-ng-class="{'mdi-chevron-down': !sort.direction, 'mdi-chevron-up': sort.direction}">
-                                    </i>
+
                                 </th><!-- end ngRepeat: item in titleItems | filter:titleFilter --><th width="" class="text-nowrap ng-scope" data-ng-repeat="item in titleItems | filter:titleFilter">
                                     <a class="clickable ng-binding" data-ng-show="item.column" data-ng-click="changeSort(item)" data-ng-bind-html="item.title.toUpperCase()">HisName</a>
-                                    <span data-ng-show="!item.column" data-ng-bind-html="item.title.toUpperCase()" class="ng-binding ng-hide">HisName</span>
-                                    <!-- ngIf: item.checkbox -->
-                                    <i class="mdi ng-hide mdi-chevron-up" data-ng-show="sort.column == item.column" data-ng-class="{'mdi-chevron-down': !sort.direction, 'mdi-chevron-up': sort.direction}">
-                                    </i>
+
                                 </th><!-- end ngRepeat: item in titleItems | filter:titleFilter --><th width="" class="text-nowrap ng-scope" data-ng-repeat="item in titleItems | filter:titleFilter">
                                     <a class="clickable ng-binding" data-ng-show="item.column" data-ng-click="changeSort(item)" data-ng-bind-html="item.title.toUpperCase()">广州机房</a>
-                                    <span data-ng-show="!item.column" data-ng-bind-html="item.title.toUpperCase()" class="ng-binding ng-hide">广州机房</span>
-                                    <!-- ngIf: item.checkbox -->
-                                    <i class="mdi ng-hide mdi-chevron-up" data-ng-show="sort.column == item.column" data-ng-class="{'mdi-chevron-down': !sort.direction, 'mdi-chevron-up': sort.direction}">
-                                    </i>
+
                                 </th><!-- end ngRepeat: item in titleItems | filter:titleFilter --><th width="" class="text-nowrap ng-scope" data-ng-repeat="item in titleItems | filter:titleFilter">
                                     <a class="clickable ng-binding" data-ng-show="item.column" data-ng-click="changeSort(item)" data-ng-bind-html="item.title.toUpperCase()">长沙机房</a>
-                                    <span data-ng-show="!item.column" data-ng-bind-html="item.title.toUpperCase()" class="ng-binding ng-hide">长沙机房</span>
-                                    <!-- ngIf: item.checkbox -->
-                                    <i class="mdi mdi-chevron-up" data-ng-show="sort.column == item.column" data-ng-class="{'mdi-chevron-down': !sort.direction, 'mdi-chevron-up': sort.direction}">
-                                    </i>
+
                                 </th><!-- end ngRepeat: item in titleItems | filter:titleFilter -->
                                     <!-- ngIf: user.hasPermission('upstreams','edit') --><th width="1" ng-if="user.hasPermission('upstreams','edit')" class="ng-scope"></th><!-- end ngIf: user.hasPermission('upstreams','edit') -->
                                     <!-- ngIf: user.hasPermission('upstreams','delete') --><th width="1" ng-if="user.hasPermission('upstreams','delete')" class="ng-scope"></th><!-- end ngIf: user.hasPermission('upstreams','delete') -->
@@ -297,7 +282,108 @@
             </div>
             </div>
         </div>
+    <div class="modal-content " id="addIDCModel" uib-modal-transclude="" ><div class="modal-header primary ng-scope">
+        <h4 class="modal-title" id="modal-title">
+            新增机房
+            <a class="modal-close pull-right" ng-click="close()">
+                <i class="mdi mdi-close closeAddIDC"></i>
+            </a>
+        </h4>
+    </div>
 
+        <div class="modal-body ng-scope" id="modal-body">
+            <form class="form-horizontal ng-pristine ng-valid">
+                <div class="form-group" ng-class="{'has-error' : errors.username}">
+                    <label class="col-sm-4 control-label">IDC <br><em>
+                        <small class="help-block">机房名称</small>
+                    </em></label>
+                    <div class="col-sm-7">
+                        <input ng-model="consumer.username" class="form-control ng-pristine ng-untouched ng-valid ng-empty">
+                        <!-- ngIf: errors.username -->
+                        <p class="help-block">这里填入
+                            <code>机房名称</code> </p>
+                    </div>
+                </div>
+
+                <!-- end ngIf: isGatewayVersionEqOrGreater('1.1.0-rc1') -->
+
+                <div class="form-group">
+                    <div class="col-sm-offset-4 col-sm-7">
+                        <button type="button" class="btn btn-primary btn-block addIDCSubmit">
+                            <i class="mdi mdi-check"></i>
+                            Submit
+                        </button>
+                    </div>
+                </div>
+
+            </form>
+        </div></div>
+
+    <div class="modal-content"id="addReq" uib-modal-transclude=""><div class="modal-header primary ng-scope">
+        <h4 class="modal-title" id="modal-title1">
+            新增请求调度
+            <a class="modal-close pull-right" ng-click="close()">
+                <i class="mdi mdi-close closeAddReq"></i>
+            </a>
+        </h4>
+    </div>
+
+        <div class="modal-body ng-scope" id="modal-body1">
+            <form class="form-horizontal ng-pristine ng-valid">
+                <div class="form-group" ng-class="{'has-error' : errors.username}">
+                    <label class="col-sm-4 control-label">hisID <br><em>
+                        <small class="help-block">医院id</small>
+                    </em></label>
+                    <div class="col-sm-7">
+                        <input ng-model="consumer.username" class="form-control ng-pristine ng-untouched ng-valid ng-empty hisId">
+                        <!-- ngIf: errors.username -->
+                        <p class="help-block">这里填入
+                            <code>hisId</code></p>
+                    </div>
+                </div>
+
+
+                <div class="form-group" ng-class="{'has-error' : errors.custom_id}">
+                    <label class="col-sm-4 control-label">机房<br><em>
+                        <small class="help-block">idc</small>
+                    </em></label>
+                    <div class="col-sm-7">
+                        <select ng-model="upstream.hash_fallback" class="form-control ng-pristine ng-untouched ng-valid ng-not-empty idcChoice">
+                            <option value="0">广州机房</option>
+                            <option value="1">深圳机房</option>
+                        </select>
+                        <!-- ngIf: errors.hash_fallback -->
+                        <p class="help-block">
+                            机房调度选择
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group" ng-class="{'has-error' : errors.custom_id}">
+                    <label class="col-sm-4 control-label">机房调度百分比<br><em>
+                        <small class="help-block">percentage</small>
+                    </em></label>
+                    <div class="col-sm-7">
+                        <select class="form-control ng-pristine ng-untouched ng-valid ng-not-empty reqPer">
+
+                        </select>
+                        <!-- ngIf: errors.hash_fallback -->
+                        <p class="help-block">
+                            机房调度选择
+                        </p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-offset-4 col-sm-7">
+                        <button type="button" class="btn btn-primary btn-block addReqSubmitt" >
+                            <i class="mdi mdi-check"></i>
+                            Submit
+                        </button>
+                    </div>
+                </div>
+
+            </form>
+        </div></div>
     </div>
     <!-- uiView: footer --><div data-ui-view="footer" class="ng-scope"><!-- ngIf: isAuthenticated() --><footer ng-if="isAuthenticated()" class="ng-scope">
     <div class="navbar navbar-footer navbar-fixed-bottom">
@@ -392,57 +478,216 @@
     </div>
 </footer><!-- end ngIf: isAuthenticated() --></div>
 </div>
-<!--
-    Client-side Templates
-    ========================
 
-    HTML templates are important prerequisites of modern, rich client applications.
-    To work their magic, frameworks like Backbone, Angular, Ember, and Knockout require
-    that you load these templates client-side.
-
-    By default, your Gruntfile is configured to automatically load and precompile
-    client-side JST templates in your `assets/templates` folder, then
-    include them here automatically (between TEMPLATES and TEMPLATES END).
-
-    To customize this behavior to fit your needs, just edit `tasks/pipeline.js`.
-    For example, here are a few things you could do:
-
-        + Import templates from other directories
-        + Use a different template engine (handlebars, jade, dust, etc.)
-        + Internationalize your client-side templates using a server-side
-          stringfile before they're served.
--->
-
-<!--TEMPLATES-->
-
-<!--TEMPLATES END-->
-
-
-<!--
-
-  Client-side Javascript
-  ========================
-
-  You can always bring in JS files manually with `script` tags, or asynchronously
-  on the client using a solution like AMD (RequireJS).  Or, if you like, you can
-  take advantage of Sails' conventional asset pipeline (boilerplate Gruntfile).
-
-  By default, files in your `assets/js` folder are included here
-  automatically (between SCRIPTS and SCRIPTS END).  Both JavaScript (.js) and
-  CoffeeScript (.coffee) are supported. In production, your scripts will be minified
-  and concatenated into a single file.
-
-  To customize any part of the built-in behavior, just edit `tasks/pipeline.js`.
-  For example, here are a few things you could do:
-
-      + Change the order of your scripts
-      + Import scripts from other directories
-      + Use a different preprocessor, like TypeScript
-
--->
 
 <script src="js/dependencies/sails.io.js"></script>
+<script src="jquery.min.js"></script>
 <script src="min/production.min.js?r=0.14.7"></script>
+<script>
+    var authorization = "Bearer eyJhbGciOiJIUzI1NiJ9.MQ.Lu-KcR4aCeuT9hi1K474zV3s4VaopLDCcf4nZvH6DQo";
+    var localIp = '192.168.111.140';
+    $("#addIDCModel").hide();
+    $("#addReq").hide();
 
+
+    $.ajax({
+        url: ' http://'+localIp+':1337/kong/services/',
+        type: 'get',
+        contentType: "application/x-www-form-urlencoded",
+        headers:{'authorization': authorization},
+        success: function (result) {
+            alert(result);
+        }
+    });
+
+    $('body').on('click', '.btn-addIDC', function () {
+        $("#addIDCModel").show();
+        $("#addReq").hide();
+        $("html, body").animate({
+            scrollTop: $("#addIDCModel").offset().top }, {duration: 500,easing: "swing"});
+        return false;
+    });
+
+    $('body').on('click', '.btnaddReq', function () {
+        $("#addReq").show();
+        $("#addIDCModel").hide();
+        $("html, body").animate({
+            scrollTop: $("#addReq").offset().top }, {duration: 500,easing: "swing"});
+        $(".reqPer").html("");
+        for (var i=0; i <= 100; i++){
+            var select = "<option value="+i+">"+i+"%</option>";
+            $(".reqPer").append(select);
+        }
+        return false;
+    });
+
+    $('body').on('click', '.addIDCSubmit', function () {
+        $("#addIDCModel").hide();
+        alert("新增机房成功！");
+    });
+
+    $('body').on('click', '.addReqSubmitt', function () {
+        $("#addReq").hide();
+        var hisId = $(".hisId").val();
+        var idc = $(".idcChoice").val();
+        //0广州/1深圳
+        var gzPer;
+        var szPer;
+        if (idc == 0){
+           gzPer = $(".reqPer").val();
+           szPer = 100 - gzPer;
+        } else {
+            szPer = $(".reqPer").val();
+            gzPer = 100 - szPer;
+        }
+        console.log(gzPer+szPer+hisId+idc);
+        creatService(hisId);
+        alert("新增his请求调度成功！");
+    });
+
+    $('body').on('click', '.closeAddIDC', function () {
+        $("#addIDCModel").hide();
+    });
+
+    $('body').on('click', '.closeAddReq', function () {
+        $("#addReq").hide();
+    });
+    
+    function creatService(hisId) {
+        var tags = [];
+        var data = {
+            'name' : getServiceName(hisId),
+            'host' : getUpstreamName(hisId),
+            'protocol' : "http",
+            'port' : 80,
+            'retries' : 5,
+            'connect_timeout' : 60000,
+            'write_timeout' : 60000,
+            'read_timeout' : 60000,
+            'tags' : tags,
+            'token' : authorization
+        }
+        $.ajax({
+            url:' http://'+localIp+':1337/kong/services/',
+            type: 'post',
+            contentType: "application/json",
+            headers:{'authorization': authorization},
+            data :JSON.stringify(data),
+            success: function (result) {
+                var id = result.id;
+                createRoute(id, hisId);
+                createUpstream(hisId,);
+            }
+        });
+    }
+
+    /**
+     * 获得命名规则下的service名称
+     * @param hisId
+     * @returns {string}
+     */
+    function getServiceName(hisId) {
+        if (hisId != null && hisId != ""){
+            return "service_his_" + hisId;
+        } else {
+            return "service_his_default" + 0;
+        }
+    }
+
+    /**
+     * 获得命名规则下的route名称
+     * @param hisId
+     * @returns {string}
+     */
+    function getRouteName(hisId) {
+        if (hisId != null && hisId != ""){
+            return "Route_his_" + hisId;
+        } else {
+            return "Route_his_default" + 0;
+        }
+    }
+
+    /**
+     * 获得命名规则下的route名称
+     * @param hisId
+     * @returns {string}
+     */
+    function getUpstreamName(hisId) {
+        if (hisId != null && hisId != ""){
+            return "upstream_his_" + hisId;
+        } else {
+            return "upstream_his_default" + 0;
+        }
+    }
+    function getRouteHostName(hisId) {
+        if (hisId != null && hisId != ""){
+            return "his_" + hisId;
+        } else {
+            return "his_default" + 0;
+        }
+    }
+  function createRoute(serviceId, hisId) {
+        var data = {
+            'name' : getRouteName(hisId),
+            'hosts' : [getRouteHostName(hisId)],
+            'strip_path' : true,
+            'preserve_host' :false,
+            'https_redirect_status_code' : 426,
+            'regex_priority' : 0,
+            'service' : {
+                'id' : serviceId
+            },
+            'token' : authorization
+        };
+        $.ajax({
+            url:' http://'+localIp+':1337/kong/routes/',
+            type: 'post',
+            contentType: "application/json",
+            headers:{'authorization': authorization},
+            data :JSON.stringify(data),
+            success: function (result) {
+                alert(result.name);
+            }
+        });
+    }
+
+    function createUpstream(hisId, szPer, gzPer) {
+        var data = {
+            'name' : getUpstreamName(hisId),
+            'slots' : 10000,
+            'token' : authorization
+        };
+        $.ajax({
+            url:' http://'+localIp+':1337/kong/upstreams/',
+            type: 'post',
+            contentType: "application/json",
+            headers:{'authorization': authorization},
+            data :JSON.stringify(data),
+            success: function (result) {
+                var id = result.id;
+                createTarget(id, "sz.com", szPer);
+                createTarget(id, "gz.com", gzPer);
+            }
+        });
+    }
+
+    function createTarget(id,target,szWeight) {
+        var data = {
+            'target' : target,
+            'weight' : szWeight,
+            'token' : authorization
+        };
+        $.ajax({
+            url:' http://'+localIp+':1337/kong/upstreams/'+id+'/targets',
+            type: 'post',
+            contentType: "application/json",
+            headers:{'authorization': authorization},
+            data :JSON.stringify(data),
+            success: function (result) {
+                alert(result.target);
+            }
+        });
+    }
+</script>
 </body>
 </html>
