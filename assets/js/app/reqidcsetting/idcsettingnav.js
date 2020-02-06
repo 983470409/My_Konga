@@ -1,5 +1,4 @@
 setInterval(addIdcSettingNav,1000);
-
 var i = 0;
 function addIdcSettingNav() {
 
@@ -16,6 +15,8 @@ function addIdcSettingNav() {
         $(".side-nav__content").append(idcHtmlDom);
     }
 }
+
+
 
 $('body').on('click', '.idcsetting', function () {
     var table =

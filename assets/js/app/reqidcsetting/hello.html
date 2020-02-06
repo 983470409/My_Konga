@@ -217,55 +217,55 @@
                             <table class="table table-hover table-striped">
                                 <tbody>
                                 <tr>
-                                    <!-- ngRepeat: item in titleItems | filter:titleFilter --><th width="1" class="text-nowrap ng-scope" data-ng-repeat="item in titleItems | filter:titleFilter">
+                                    <th width="1" class="text-nowrap ng-scope" data-ng-repeat="item in titleItems | filter:titleFilter">
                                     <a class="clickable ng-binding ng-hide" data-ng-show="item.column" data-ng-click="changeSort(item)" data-ng-bind-html="item.title.toUpperCase()"></a>
                                     <span data-ng-show="!item.column" data-ng-bind-html="item.title.toUpperCase()" class="ng-binding"></span>
-                                    <!-- ngIf: item.checkbox -->
-                                    <i class="mdi ng-hide mdi-chevron-up" data-ng-show="sort.column == item.column" data-ng-class="{'mdi-chevron-down': !sort.direction, 'mdi-chevron-up': sort.direction}">
-                                    </i>
-                                </th><!-- end ngRepeat: item in titleItems | filter:titleFilter --><th width="" class="text-nowrap ng-scope" data-ng-repeat="item in titleItems | filter:titleFilter">
-                                    <a class="clickable ng-binding" data-ng-show="item.column" data-ng-click="changeSort(item)" data-ng-bind-html="item.title.toUpperCase()">HISID</a>
-
-                                </th><!-- end ngRepeat: item in titleItems | filter:titleFilter --><th width="" class="text-nowrap ng-scope" data-ng-repeat="item in titleItems | filter:titleFilter">
-                                    <a class="clickable ng-binding" data-ng-show="item.column" data-ng-click="changeSort(item)" data-ng-bind-html="item.title.toUpperCase()">HisName</a>
-
-                                </th><!-- end ngRepeat: item in titleItems | filter:titleFilter --><th width="" class="text-nowrap ng-scope" data-ng-repeat="item in titleItems | filter:titleFilter">
-                                    <a class="clickable ng-binding" data-ng-show="item.column" data-ng-click="changeSort(item)" data-ng-bind-html="item.title.toUpperCase()">广州机房</a>
-
-                                </th><!-- end ngRepeat: item in titleItems | filter:titleFilter --><th width="" class="text-nowrap ng-scope" data-ng-repeat="item in titleItems | filter:titleFilter">
-                                    <a class="clickable ng-binding" data-ng-show="item.column" data-ng-click="changeSort(item)" data-ng-bind-html="item.title.toUpperCase()">长沙机房</a>
-
-                                </th><!-- end ngRepeat: item in titleItems | filter:titleFilter -->
-                                    <!-- ngIf: user.hasPermission('upstreams','edit') --><th width="1" ng-if="user.hasPermission('upstreams','edit')" class="ng-scope"></th><!-- end ngIf: user.hasPermission('upstreams','edit') -->
-                                    <!-- ngIf: user.hasPermission('upstreams','delete') --><th width="1" ng-if="user.hasPermission('upstreams','delete')" class="ng-scope"></th><!-- end ngIf: user.hasPermission('upstreams','delete') -->
+                                        <i class="mdi ng-hide mdi-chevron-up" data-ng-show="sort.column == item.column" data-ng-class="{'mdi-chevron-down': !sort.direction, 'mdi-chevron-up': sort.direction}">
+                                        </i>
+                                    </th>
+                                    <th width="" class="text-nowrap ng-scope" data-ng-repeat="item in titleItems | filter:titleFilter">
+                                        <a class="clickable ng-binding" data-ng-show="item.column" data-ng-click="changeSort(item)" data-ng-bind-html="item.title.toUpperCase()">HISID</a>
+                                    </th>
+                                    <th width="" class="text-nowrap ng-scope" data-ng-repeat="item in titleItems | filter:titleFilter">
+                                        <a class="clickable ng-binding" data-ng-show="item.column" data-ng-click="changeSort(item)" data-ng-bind-html="item.title.toUpperCase()">HisName</a>
+                                    </th>
+                                    <th width="" class="text-nowrap ng-scope" data-ng-repeat="item in titleItems | filter:titleFilter">
+                                        <a class="clickable ng-binding" data-ng-show="item.column" data-ng-click="changeSort(item)" data-ng-bind-html="item.title.toUpperCase()">广州机房</a>
+                                    </th>
+                                    <th width="" class="text-nowrap ng-scope" data-ng-repeat="item in titleItems | filter:titleFilter">
+                                        <a class="clickable ng-binding" data-ng-show="item.column" data-ng-click="changeSort(item)" data-ng-bind-html="item.title.toUpperCase()">长沙机房</a>
+                                    </th>
+                                    <th width="1" ng-if="user.hasPermission('upstreams','edit')" class="ng-scope"></th>
+                                    <th width="1" ng-if="user.hasPermission('upstreams','delete')" class="ng-scope"></th>
                                 </tr>
-                                <tr ng-repeat="item in items.data | orderBy:sort.column:sort.direction | filter : filters.searchWord | itemsPerPage: itemsPerPage" class="ng-scope">
-                                    <td>
-                                        <span class="text-nowrap clickable ng-binding ng-isolate-scope" data-ng-click="openRawView(item)" data-item="item"><i uib-tooltip="Raw view" class="mdi mdi-eye-outline"></i></span>
-                                    </td>
-                                    <td class="ng-binding">1</td>
-                                    <td>
-                                        <!-- ngRepeat: tag in item.tags --><span class="badge badge-tag badge-success badge-inverse ng-binding ng-scope" ng-repeat="tag in item.tags">
-                            <i class="mdi mdi-tag"></i>&nbsp;
-                            广州粤北人民医院
-                        </span><!-- end ngRepeat: tag in item.tags -->
-                                    </td>
-                                    <td class="ng-binding">10%</td>
-                                    <td class="ng-binding">90%</td>
-                                    <!-- ngIf: user.hasPermission('upstreams','edit') --><td ng-if="user.hasPermission('upstreams','edit')" class="ng-scope">
-                                    <a class="btn clickable btn-primary btn-link" data-ui-sref="upstreams.edit({id:item.id})" href="#!/upstreams/588754ad-0807-446e-9c04-35d548fcbf71">
-                                        <i class="mdi mdi-information-outline"></i>
-                                        details
-                                    </a>
-                                </td><!-- end ngIf: user.hasPermission('upstreams','edit') -->
-                                    <!-- ngIf: user.hasPermission('upstreams','delete') --><td ng-if="user.hasPermission('upstreams','delete')" class="ng-scope">
-                                    <button type="button" ng-click="deleteItem($index,item)" class="btn btn-danger btn-link">
-                                        <i class="mdi mdi-delete"></i>
-                                        Delete
-                                    </button>
-                                </td><!-- end ngIf: user.hasPermission('upstreams','delete') -->
-                                </tr>
-
+                                <div class="mainbody">
+                                    <tr class="ng-scope">
+                                        <td>
+                                            <span class="text-nowrap clickable ng-binding ng-isolate-scope" ><i uib-tooltip="Raw view" class="mdi mdi-eye-outline"></i></span>
+                                        </td>
+                                        <td class="ng-binding">1</td>
+                                        <td class="ng-binding">
+                                            <!--<span class="badge badge-tag badge-success badge-inverse ng-binding ng-scope" ng-repeat="tag in item.tags">-->
+                                            <!--<i class="mdi mdi-tag"></i>&nbsp;-->
+                                             广州粤北人民医院
+                                             <!--</span>&lt;!&ndash; end ngRepeat: tag in item.tags &ndash;&gt;-->
+                                        </td>
+                                        <td class="ng-binding">10%</td>
+                                        <td class="ng-binding">90%</td>
+                                        <!--<td ng-if="user.hasPermission('upstreams','edit')" class="ng-scope">-->
+                                            <!--<a class="btn clickable btn-primary btn-link" data-ui-sref="upstreams.edit({id:item.id})" href="#!/upstreams/588754ad-0807-446e-9c04-35d548fcbf71">-->
+                                                <!--<i class="mdi mdi-information-outline"></i>-->
+                                                <!--details-->
+                                            <!--</a>-->
+                                        <!--</td>-->
+                                       <td class="ng-scope">
+                                            <button type="button"  class="btn btn-danger btn-link">
+                                                <i class="mdi mdi-delete"></i>
+                                                Delete
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </div>
                                 <!-- ngIf: items.length === 0 && !loading -->
                                 <!-- ngIf: loading -->
                                 </tbody>
@@ -482,23 +482,15 @@
 
 <script src="js/dependencies/sails.io.js"></script>
 <script src="jquery.min.js"></script>
+<script src="idcfunction.js"></script>
 <script src="min/production.min.js?r=0.14.7"></script>
 <script>
     var authorization = "Bearer eyJhbGciOiJIUzI1NiJ9.MQ.Lu-KcR4aCeuT9hi1K474zV3s4VaopLDCcf4nZvH6DQo";
-    var localIp = '192.168.111.140';
+    var localIp = '192.168.111.140:1337';
+    var protocol = 'http';
     $("#addIDCModel").hide();
     $("#addReq").hide();
 
-
-    $.ajax({
-        url: ' http://'+localIp+':1337/kong/services/',
-        type: 'get',
-        contentType: "application/x-www-form-urlencoded",
-        headers:{'authorization': authorization},
-        success: function (result) {
-            alert(result);
-        }
-    });
 
     $('body').on('click', '.btn-addIDC', function () {
         $("#addIDCModel").show();
@@ -540,8 +532,7 @@
             szPer = $(".reqPer").val();
             gzPer = 100 - szPer;
         }
-        console.log(gzPer+szPer+hisId+idc);
-        creatService(hisId);
+        creatService(hisId,szPer,gzPer);
         alert("新增his请求调度成功！");
     });
 
@@ -553,83 +544,52 @@
         $("#addReq").hide();
     });
     
-    function creatService(hisId) {
-        var tags = [];
+    function creatService(hisId,szPer,gzper) {
+        var port;
+        if (protocol == 'http'){
+            port = 80;
+        } else {
+            port = 443;
+        }
         var data = {
             'name' : getServiceName(hisId),
             'host' : getUpstreamName(hisId),
-            'protocol' : "http",
-            'port' : 80,
+            'port' : port,
+            'protocol':protocol,
             'retries' : 5,
             'connect_timeout' : 60000,
             'write_timeout' : 60000,
             'read_timeout' : 60000,
-            'tags' : tags,
+            'tags' : [],
             'token' : authorization
         }
         $.ajax({
-            url:' http://'+localIp+':1337/kong/services/',
+            url:' http://'+localIp+'/kong/services/',
             type: 'post',
             contentType: "application/json",
             headers:{'authorization': authorization},
             data :JSON.stringify(data),
             success: function (result) {
-                var id = result.id;
-                createRoute(id, hisId);
-                createUpstream(hisId,);
+                if (result.statusCode == 409){
+                    alert("该hisId调度已存在！")
+                } else {
+                    var id = result.id;
+                    createRoute(id, hisId);
+                    createUpstream(hisId,szPer,gzper);
+                }
             }
         });
     }
-
     /**
-     * 获得命名规则下的service名称
+     * ch
+     * @param serviceId
      * @param hisId
-     * @returns {string}
      */
-    function getServiceName(hisId) {
-        if (hisId != null && hisId != ""){
-            return "service_his_" + hisId;
-        } else {
-            return "service_his_default" + 0;
-        }
-    }
-
-    /**
-     * 获得命名规则下的route名称
-     * @param hisId
-     * @returns {string}
-     */
-    function getRouteName(hisId) {
-        if (hisId != null && hisId != ""){
-            return "Route_his_" + hisId;
-        } else {
-            return "Route_his_default" + 0;
-        }
-    }
-
-    /**
-     * 获得命名规则下的route名称
-     * @param hisId
-     * @returns {string}
-     */
-    function getUpstreamName(hisId) {
-        if (hisId != null && hisId != ""){
-            return "upstream_his_" + hisId;
-        } else {
-            return "upstream_his_default" + 0;
-        }
-    }
-    function getRouteHostName(hisId) {
-        if (hisId != null && hisId != ""){
-            return "his_" + hisId;
-        } else {
-            return "his_default" + 0;
-        }
-    }
-  function createRoute(serviceId, hisId) {
+    function createRoute(serviceId, hisId) {
         var data = {
             'name' : getRouteName(hisId),
-            'hosts' : [getRouteHostName(hisId)],
+            'paths' : ['/'],
+            "headers": {"hisId ":[hisId]},
             'strip_path' : true,
             'preserve_host' :false,
             'https_redirect_status_code' : 426,
@@ -640,7 +600,7 @@
             'token' : authorization
         };
         $.ajax({
-            url:' http://'+localIp+':1337/kong/routes/',
+            url:' http://'+localIp+'/kong/routes/',
             type: 'post',
             contentType: "application/json",
             headers:{'authorization': authorization},
@@ -658,36 +618,42 @@
             'token' : authorization
         };
         $.ajax({
-            url:' http://'+localIp+':1337/kong/upstreams/',
+            url:' http://'+localIp+'/kong/upstreams/',
             type: 'post',
             contentType: "application/json",
             headers:{'authorization': authorization},
             data :JSON.stringify(data),
             success: function (result) {
-                var id = result.id;
-                createTarget(id, "sz.com", szPer);
-                createTarget(id, "gz.com", gzPer);
+                if (result.statusCode == 409){
+                    alert("该hisId调度对应的upstream已存在！");
+                } else {
+                    var id = result.id;
+                    createTarget(id, "sz.com", szPer);
+                    createTarget(id, "gz.com", gzPer);
+                }
+
             }
         });
     }
 
-    function createTarget(id,target,szWeight) {
+    function createTarget(id,target,weight) {
         var data = {
             'target' : target,
-            'weight' : szWeight,
+            'weight' : parseInt(weight),
             'token' : authorization
         };
         $.ajax({
-            url:' http://'+localIp+':1337/kong/upstreams/'+id+'/targets',
+            url:' http://'+localIp+'/kong/upstreams/'+id+'/targets',
             type: 'post',
             contentType: "application/json",
             headers:{'authorization': authorization},
             data :JSON.stringify(data),
             success: function (result) {
-                alert(result.target);
             }
         });
     }
+
+
 </script>
 </body>
 </html>
