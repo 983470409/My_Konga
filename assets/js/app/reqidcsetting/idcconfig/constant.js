@@ -3,12 +3,13 @@
  * @type {string}
  */
 var authorization = "Bearer eyJhbGciOiJIUzI1NiJ9.MQ.Lu-KcR4aCeuT9hi1K474zV3s4VaopLDCcf4nZvH6DQo";
+
 /**
  * http请求ip
  * @type {string}
  */
-var localIp = '192.168.11.113:1337';
-// var localIp = '192.168.111.140:1337';
+// var localIp = '192.168.11.113:1337';
+var localIp = '192.168.111.140:1337';
 
 /**
  * 创建的默认协议
@@ -28,7 +29,7 @@ var gzTarget = '58.67.212.249:80';
  */
 var szTarget = '119.147.23.83:80';
 
-var routeHeaderKey = 'hisid';
+var routeHeaderKey = 'Hc-Src-Hisid';
 
 /**
  * 表格头孢

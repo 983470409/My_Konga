@@ -29,20 +29,20 @@ function gethisnameByhisid(hisId) {
     return hisName;
 }
 
-function sethisInfo() {
-    $.ajax({
-        url: 'http://uoms.med.gzhc365.com/api/point/front/gethisinfo',
-        type: 'get',
-        async:false,
-        success:function (result) {
-           if (result.hasOwnProperty("data")) {
-               hisinfo = result.data;
-               return hisinfo;
-           }
-        }
-    });
-    return hisinfo;
-}
+// function sethisInfo() {
+//     $.ajax({
+//         url: 'http://uoms.med.gzhc365.com/api/point/front/gethisinfo',
+//         type: 'get',
+//         async:false,
+//         success:function (result) {
+//            if (result.hasOwnProperty("data")) {
+//                hisinfo = result.data;
+//                return hisinfo;
+//            }
+//         }
+//     });
+//     return hisinfo;
+// }
 
 
 /**

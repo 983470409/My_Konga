@@ -484,15 +484,16 @@
 </footer><!-- end ngIf: isAuthenticated() -->
 </div>
 
-
-<script src="constant.js"></script>
+<script src="../../../../kongadata/constant.js"></script>
+<script src="idcconfig/constant.js"></script>
 <script src="js/dependencies/sails.io.js"></script>
-<script src="jquery.min.js"></script>
-<script src="idcfunction.js"></script>
+<script src="idcjs/jquery.min.js"></script>
+<script src="idcjs/idcfunction.js"></script>
 <script src="min/production.min.js?r=0.14.7"></script>
 <script>
     var editBeforeHisId;
-    sethisInfo();
+    hisinfo = hisdata.data;
+    console.log(hisinfo);
     interHtml();
     $("#addIDCModel").hide();
     $("#addReq").hide();
@@ -695,7 +696,7 @@
         var data = {
             'name' : getRouteName(hisId),
             'paths' : ['/'],
-            "headers": {"hisid":[hisId]},
+            "headers": {routeHeaderKey:[hisId]},
             'strip_path' : true,
             'preserve_host' :false,
             'https_redirect_status_code' : 426,
@@ -731,8 +732,8 @@
                 if (result.hasOwnProperty("data")){
                     var data = result.data;
                     for (var i=0; i<data.length; i++){
-                        if (data[i].headers.hasOwnProperty(routeHeaderKey) && data[i].headers.hisid.length > 0){
-                            if (oldhisId == data[i].headers.hisid){
+                        if (data[i].headers.hasOwnProperty(routeHeaderKey) && data[i].headers.routeHeaderKey.length > 0){
+                            if (oldhisId == data[i].headers.routeHeaderKey){
                                 updateRoute(serviceUniqKey,data[i].id,hisId);
                             }
                         }
@@ -749,7 +750,7 @@
     function updateRoute(serviceUniqKey, routeUniqKey, hisId) {
         var data = {
             'name' : getRouteName(hisId),
-            "headers": {"hisid":[hisId]},
+            "headers": {routeHeaderKey:[hisId]},
             'token' : authorization
         };
         $.ajax({
