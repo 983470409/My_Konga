@@ -139,7 +139,8 @@
                 <h3 class="page-title">
                     <!--<span ng-bind-html="$state.data.prefix" class="page-title-prefix"></span>-->
                     <span ng-bind-html="$state.data.pageName" class="ng-binding">IDCSetting</span>&nbsp;
-                    <div ng-show="loading" id="spinner" data-spinner="{&quot;radius&quot;: 15,&quot;strokeWidth&quot;:3}" style="display: inline-block;" class="ng-hide"><svg width="30" height="30" style="animation: 2s linear 0s infinite normal none running spin-rotate-1577439247341;"><circle cx="15" cy="15" r="12" fill="none" stroke-width="3" style="stroke-dasharray: 1, 120; stroke-dashoffset: 0; stroke-linecap: round; stroke: rgb(63, 136, 248); animation: 1.5s ease-in-out 0s infinite normal none running spin-dash-1577439247341;"></circle></svg></div>
+                    <div ng-show="loading" id="spinner"  style="display: inline-block;" class="ng-hide">
+                        <svg width="30" height="30" style="animation: 2s linear 0s infinite normal none running spin-rotate-1577439247341;"><circle cx="15" cy="15" r="12" fill="none" stroke-width="3" style="stroke-dasharray: 1, 120; stroke-dashoffset: 0; stroke-linecap: round; stroke: rgb(63, 136, 248); animation: 1.5s ease-in-out 0s infinite normal none running spin-dash-1577439247341;"></circle></svg></div>
                 </h3>
                 <!-- ngIf: $state.data.pageDescription --><p ng-if="$state.data.pageDescription" class="help-block ng-binding ng-scope" ng-bind-html="$state.data.pageDescription">这是个新页面</p><!-- end ngIf: $state.data.pageDescription -->
                 <!-- ngIf: $state.data.displayName -->
@@ -157,51 +158,23 @@
                             新建机房&nbsp;
                         </button>
                     </div>
-                    <div class="pull-right list-search-filters ng-isolate-scope" data-filters="filters" data-options="itemsPerPageOptions" data-items="itemsPerPage">
-                        <form class="form-inline ng-pristine ng-valid" role="form">
+                    <div class="pull-right list-search-filters">
+                        <form class="form-inline">
                             <div class="form-group">
-                                <div class="input-group dropdown" uib-dropdown="" is-open="status.isopen">
-                <span class="input-group-addon dropdown-toggle" uib-dropdown-toggle="" aria-haspopup="true" aria-expanded="false">
-                    <i class="mdi mdi-magnify"></i>
-                </span>
-                                    <input class="form-control ng-pristine ng-untouched ng-valid ng-empty" type="text" placeholder="search..." data-ng-model-options="{debounce: 500}" data-ng-model="filters.searchWord">
-                                    <!--<span class="input-group-addon clickable">-->
-                                    <!--<button type="button" class="btn btn-primary btn-sm" data-ng-click="search()">-->
-                                    <!--Search-->
-                                    <!--</button>-->
-
-                                    <!--</span>-->
-
-                                    <!--<ul uib-dropdown-menu class="dropdown-menu animated fadeInDownShort go dropdown-menu-arrow" role="menu">-->
-                                    <!--<li class="title padding-left">Affected columns</li>-->
-                                    <!--<li class="divider"></li>-->
-                                    <!--<li data-ng-repeat="column in filters.columns | filter: inSearch">-->
-                                    <!--<a  data-ng-click="column.inSearch = !column.inSearch; $event.preventDefault(); $event.stopPropagation();">-->
-                                    <!--<i class="material-icons"-->
-                                    <!--data-ng-class="{'opaque': !column.inSearch}"-->
-                                    <!--&gt;done</i>-->
-
-
-                                    <!--<span-->
-                                    <!--data-ng-if="column.titleSearch"-->
-                                    <!--data-ng-bind="column.titleSearch"-->
-                                    <!--&gt;</span>-->
-
-                                    <!--<span-->
-                                    <!--data-ng-if="!column.titleSearch"-->
-                                    <!--data-ng-bind="column.title"-->
-                                    <!--&gt;</span>-->
-                                    <!--</a>-->
-                                    <!--</li>-->
-                                    <!--</ul>-->
-
-
+                                <div class="input-group" style="display: none">
+                                    <span class="input-group-addon">
+                                        Results :
+                                    </span>
+                                    <select class="form-control ng-pristine ng-untouched ng-valid ng-not-empty searchWay">
+                                        <option  value="0" selected="selected">根据hisId筛选</option>
+                                        <option  value="1">根据医院名称筛选</option>
+                                    </select>
                                 </div>
                                 <div class="input-group">
-                <span class="input-group-addon">
-                    Results :
-                </span>
-                                    <select class="form-control ng-pristine ng-untouched ng-valid ng-not-empty" data-ng-model="items" data-ng-options="page for page in options"><option label="10" value="number:10">10</option><option label="25" value="number:25" selected="selected">25</option><option label="50" value="number:50">50</option><option label="100" value="number:100">100</option></select>
+                                    <span class="input-group-addon dropdown-toggle">
+                                        <i class="mdi mdi-magnify"></i>
+                                    </span>
+                                    <input class="form-control searchRq" type="text" placeholder="search..." >
                                 </div>
 
                             </div>
@@ -214,8 +187,10 @@
                 <!-- ngIf: !loading || items.length --><div class="row ng-scope" ng-if="!loading || items.length" style="">
                     <div class="col-md-12">
                         <div class="table-responsive">
-                            <table class="table table-hover table-striped">
-                                <tbody>
+
+                            <table class="table table-hover table-striped tableReq">
+
+                                <tbody class="mainbodyinfo">
                                 <tr>
                                     <th width="1" class="text-nowrap ng-scope" data-ng-repeat="item in titleItems | filter:titleFilter">
                                     <a class="clickable ng-binding ng-hide" data-ng-show="item.column" data-ng-click="changeSort(item)" data-ng-bind-html="item.title.toUpperCase()"></a>
@@ -233,39 +208,36 @@
                                         <a class="clickable ng-binding" data-ng-show="item.column" data-ng-click="changeSort(item)" data-ng-bind-html="item.title.toUpperCase()">广州机房</a>
                                     </th>
                                     <th width="" class="text-nowrap ng-scope" data-ng-repeat="item in titleItems | filter:titleFilter">
-                                        <a class="clickable ng-binding" data-ng-show="item.column" data-ng-click="changeSort(item)" data-ng-bind-html="item.title.toUpperCase()">长沙机房</a>
+                                        <a class="clickable ng-binding" data-ng-show="item.column" data-ng-click="changeSort(item)" data-ng-bind-html="item.title.toUpperCase()">深圳机房</a>
                                     </th>
                                     <th width="1" ng-if="user.hasPermission('upstreams','edit')" class="ng-scope"></th>
                                     <th width="1" ng-if="user.hasPermission('upstreams','delete')" class="ng-scope"></th>
                                 </tr>
-                                <div class="mainbody">
-                                    <tr class="ng-scope">
-                                        <td>
-                                            <span class="text-nowrap clickable ng-binding ng-isolate-scope" ><i uib-tooltip="Raw view" class="mdi mdi-eye-outline"></i></span>
-                                        </td>
-                                        <td class="ng-binding">1</td>
-                                        <td class="ng-binding">
-                                            <!--<span class="badge badge-tag badge-success badge-inverse ng-binding ng-scope" ng-repeat="tag in item.tags">-->
-                                            <!--<i class="mdi mdi-tag"></i>&nbsp;-->
-                                             广州粤北人民医院
-                                             <!--</span>&lt;!&ndash; end ngRepeat: tag in item.tags &ndash;&gt;-->
-                                        </td>
-                                        <td class="ng-binding">10%</td>
-                                        <td class="ng-binding">90%</td>
-                                        <!--<td ng-if="user.hasPermission('upstreams','edit')" class="ng-scope">-->
-                                            <!--<a class="btn clickable btn-primary btn-link" data-ui-sref="upstreams.edit({id:item.id})" href="#!/upstreams/588754ad-0807-446e-9c04-35d548fcbf71">-->
-                                                <!--<i class="mdi mdi-information-outline"></i>-->
-                                                <!--details-->
-                                            <!--</a>-->
-                                        <!--</td>-->
-                                       <td class="ng-scope">
-                                            <button type="button"  class="btn btn-danger btn-link">
-                                                <i class="mdi mdi-delete"></i>
-                                                Delete
-                                            </button>
-                                        </td>
-                                    </tr>
-                                </div>
+                                <tr>
+                                    <td>
+                                    <span class="text-nowrap clickable ng-binding ng-isolate-scope" ><i uib-tooltip="Raw view" class="mdi mdi-eye-outline"></i></span>
+                                    </td>
+                                    <td class="ng-binding">1</td>
+                                    <td class="ng-binding">
+                                        广州粤北人民医院
+                                    </td>
+                                    <td class="ng-binding">10%</td>
+                                    <td class="ng-binding">90%</td>
+                                    <td class="ng-scope">
+                                        <a class="clickable btn btn-link btn-warning editReq">
+                                        <i class="mdi mdi-pencil"></i>
+                                        edit
+                                    </a>
+                                    </td>
+                                    <td class="ng-scope">
+                                        <button type="button"  class="btn btn-danger btn-link">
+                                            <i class="mdi mdi-delete"></i>
+                                            Delete
+                                        </button>
+                                        <input type="hidden" />
+                                    </td>
+                                </tr>
+
                                 <!-- ngIf: items.length === 0 && !loading -->
                                 <!-- ngIf: loading -->
                                 </tbody>
@@ -282,34 +254,62 @@
             </div>
             </div>
         </div>
-    <div class="modal-content " id="addIDCModel" uib-modal-transclude="" ><div class="modal-header primary ng-scope">
-        <h4 class="modal-title" id="modal-title">
-            新增机房
-            <a class="modal-close pull-right" ng-click="close()">
-                <i class="mdi mdi-close closeAddIDC"></i>
-            </a>
-        </h4>
-    </div>
+    <div class="modal-content " id="addIDCModel" uib-modal-transclude="" >
+        <div class="modal-header primary ng-scope">
+            <h4 class="modal-title" id="modal-title">
+                修改请求调度
+                <a class="modal-close pull-right" ng-click="close()">
+                    <i class="mdi mdi-close closeAddIDC"></i>
+                </a>
+            </h4>
+        </div>
 
         <div class="modal-body ng-scope" id="modal-body">
             <form class="form-horizontal ng-pristine ng-valid">
-                <div class="form-group" ng-class="{'has-error' : errors.username}">
-                    <label class="col-sm-4 control-label">IDC <br><em>
-                        <small class="help-block">机房名称</small>
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">hisID <br><em>
+                        <small class="help-block">医院id</small>
                     </em></label>
                     <div class="col-sm-7">
-                        <input ng-model="consumer.username" class="form-control ng-pristine ng-untouched ng-valid ng-empty">
-                        <!-- ngIf: errors.username -->
+                        <input ng-model="consumer.username" class="form-control ng-pristine ng-untouched ng-valid ng-empty edithisId">
                         <p class="help-block">这里填入
-                            <code>机房名称</code> </p>
+                            <code>hisId</code></p>
                     </div>
                 </div>
 
-                <!-- end ngIf: isGatewayVersionEqOrGreater('1.1.0-rc1') -->
+
+                <div class="form-group" ng-class="{'has-error' : errors.custom_id}">
+                    <label class="col-sm-4 control-label">机房<br><em>
+                        <small class="help-block">idc</small>
+                    </em></label>
+                    <div class="col-sm-7">
+                        <select ng-model="upstream.hash_fallback" class="form-control ng-pristine ng-untouched ng-valid ng-not-empty editidcChoice">
+                            <option value="0">广州机房</option>
+                            <option value="1">深圳机房</option>
+                        </select>
+                        <!-- ngIf: errors.hash_fallback -->
+                        <p class="help-block">
+                            机房调度选择
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group" ng-class="{'has-error' : errors.custom_id}">
+                    <label class="col-sm-4 control-label">机房调度百分比<br><em>
+                        <small class="help-block">percentage</small>
+                    </em></label>
+                    <div class="col-sm-7">
+                        <select class="form-control ng-pristine ng-untouched ng-valid ng-not-empty reqPer">
+                        </select>
+                        <!-- ngIf: errors.hash_fallback -->
+                        <p class="help-block">
+                            机房调度选择
+                        </p>
+                    </div>
+                </div>
 
                 <div class="form-group">
                     <div class="col-sm-offset-4 col-sm-7">
-                        <button type="button" class="btn btn-primary btn-block addIDCSubmit">
+                        <button type="button" class="btn btn-primary btn-block editReqSubmit" >
                             <i class="mdi mdi-check"></i>
                             Submit
                         </button>
@@ -317,9 +317,11 @@
                 </div>
 
             </form>
-        </div></div>
+        </div>
+    </div>
 
-    <div class="modal-content"id="addReq" uib-modal-transclude=""><div class="modal-header primary ng-scope">
+    <div class="modal-content" id="addReq" uib-modal-transclude="">
+        <div class="modal-header primary ng-scope">
         <h4 class="modal-title" id="modal-title1">
             新增请求调度
             <a class="modal-close pull-right" ng-click="close()">
@@ -363,8 +365,7 @@
                         <small class="help-block">percentage</small>
                     </em></label>
                     <div class="col-sm-7">
-                        <select class="form-control ng-pristine ng-untouched ng-valid ng-not-empty reqPer">
-
+                        <select class="form-control ng-pristine ng-untouched ng-valid ng-not-empty addreqPer">
                         </select>
                         <!-- ngIf: errors.hash_fallback -->
                         <p class="help-block">
@@ -372,6 +373,7 @@
                         </p>
                     </div>
                 </div>
+
 
                 <div class="form-group">
                     <div class="col-sm-offset-4 col-sm-7">
@@ -383,9 +385,12 @@
                 </div>
 
             </form>
-        </div></div>
+        </div>
     </div>
-    <!-- uiView: footer --><div data-ui-view="footer" class="ng-scope"><!-- ngIf: isAuthenticated() --><footer ng-if="isAuthenticated()" class="ng-scope">
+
+</div>
+    <!-- uiView: footer -->
+    <div data-ui-view="footer" class="ng-scope"><!-- ngIf: isAuthenticated() --><footer ng-if="isAuthenticated()" class="ng-scope">
     <div class="navbar navbar-footer navbar-fixed-bottom">
         <div class="container-fluid">
             <ul class="nav navbar-nav navbar-left no-margin">
@@ -476,27 +481,31 @@
         </ul><!-- end ngIf: user.hasPermission('connections','read') -->
         </div>
     </div>
-</footer><!-- end ngIf: isAuthenticated() --></div>
+</footer><!-- end ngIf: isAuthenticated() -->
 </div>
 
 
+<script src="constant.js"></script>
 <script src="js/dependencies/sails.io.js"></script>
 <script src="jquery.min.js"></script>
 <script src="idcfunction.js"></script>
 <script src="min/production.min.js?r=0.14.7"></script>
 <script>
-    var authorization = "Bearer eyJhbGciOiJIUzI1NiJ9.MQ.Lu-KcR4aCeuT9hi1K474zV3s4VaopLDCcf4nZvH6DQo";
-    var localIp = '192.168.111.140:1337';
-    var protocol = 'http';
+    var editBeforeHisId;
+    sethisInfo();
+    interHtml();
     $("#addIDCModel").hide();
     $("#addReq").hide();
 
+    $('body').on('keyup', '.searchRq', function () {
+        var key = $(".searchRq").val();
+        $(".tableReq tr:gt(0)").hide();
+        var $d = $(".tableReq tr:gt(0)").filter(":contains('"+$.trim(key)+"')");
+        $d.show();
+    });
+
 
     $('body').on('click', '.btn-addIDC', function () {
-        $("#addIDCModel").show();
-        $("#addReq").hide();
-        $("html, body").animate({
-            scrollTop: $("#addIDCModel").offset().top }, {duration: 500,easing: "swing"});
         return false;
     });
 
@@ -505,35 +514,62 @@
         $("#addIDCModel").hide();
         $("html, body").animate({
             scrollTop: $("#addReq").offset().top }, {duration: 500,easing: "swing"});
-        $(".reqPer").html("");
-        for (var i=0; i <= 100; i++){
-            var select = "<option value="+i+">"+i+"%</option>";
-            $(".reqPer").append(select);
-        }
+        fillWeight(30);
         return false;
     });
 
-    $('body').on('click', '.addIDCSubmit', function () {
+    $('body').on('click', '.editReqSubmit', function () {
         $("#addIDCModel").hide();
-        alert("新增机房成功！");
+        var hisId = $(".edithisId").val();
+        var idc = $(".editidcChoice").val();
+        if (hisId == null || hisId == ""){
+            alert("HisId不能为空！");
+            return ;
+        }
+        //0广州/1深圳
+        var gzPer;
+        var szPer;
+        if (idc == 0){
+            gzPer = $(".reqPer").val();
+            szPer = 100 - gzPer;
+        } else {
+            szPer = $(".reqPer").val();
+            gzPer = 100 - szPer;
+        }
+        if (hisId == "-"){
+            hisId = 0;
+            editBeforeHisId = 0;
+
+        }
+        if (deleteUpstream(getUpstreamName(editBeforeHisId))){
+            createUpstream(hisId,szPer,gzPer);
+            alert("修改完成！");
+            interHtml();
+        }
+        // updateService(hisId,szPer,gzPer,editBeforeHisId);
+
+
     });
 
     $('body').on('click', '.addReqSubmitt', function () {
         $("#addReq").hide();
         var hisId = $(".hisId").val();
+        if (hisId == null || hisId == ""){
+            alert("HisId不能为空！");
+            return ;
+        }
         var idc = $(".idcChoice").val();
         //0广州/1深圳
         var gzPer;
         var szPer;
         if (idc == 0){
-           gzPer = $(".reqPer").val();
+           gzPer = $(".addreqPer").val();
            szPer = 100 - gzPer;
         } else {
-            szPer = $(".reqPer").val();
+            szPer = $(".addreqPer").val();
             gzPer = 100 - szPer;
         }
         creatService(hisId,szPer,gzPer);
-        alert("新增his请求调度成功！");
     });
 
     $('body').on('click', '.closeAddIDC', function () {
@@ -543,7 +579,32 @@
     $('body').on('click', '.closeAddReq', function () {
         $("#addReq").hide();
     });
-    
+
+    $('body').on('click', '.delReq', function () {
+        if (confirm("确认删除？")){
+            var serviceId =  $(this).nextAll(".serviceIdValue").val();
+            var host =  $(this).nextAll(".servicehostValue").val();
+            if (deleteRoute(serviceId)){
+                deleteUpstream(host);
+                interHtml();
+            }
+        }
+    });
+
+    $('body').on('click', '.editReq', function () {
+        $("#addIDCModel").show();
+        $("#addReq").hide();
+        $("html, body").animate({
+            scrollTop: $("#addIDCModel").offset().top }, {duration: 500,easing: "swing"});
+        var tr = $(this).parent().parent();
+        var hisId = tr.children(".serviceHisId").text();
+        var gzWeight = tr.children(".serviceGz").text().split("%")[0];
+        fillWeight(gzWeight);
+        editBeforeHisId = hisId;
+        $(".edithisId").attr("disabled","true");
+        $(".edithisId").val(hisId);
+    });
+
     function creatService(hisId,szPer,gzper) {
         var port;
         if (protocol == 'http'){
@@ -570,26 +631,71 @@
             headers:{'authorization': authorization},
             data :JSON.stringify(data),
             success: function (result) {
-                if (result.statusCode == 409){
-                    alert("该hisId调度已存在！")
-                } else {
-                    var id = result.id;
-                    createRoute(id, hisId);
-                    createUpstream(hisId,szPer,gzper);
-                }
+                var id = result.id;
+                createRoute(id, hisId);
+                createUpstream(hisId,szPer,gzper);
+                alert("新增his请求调度成功！");
+                interHtml();
+                $(".hisId").val("");
+            },error: function (jqXHR, textStatus, errorThrown) {
+                alert("创建失败！请检查该hisId是否注册请求调度！")
             }
         });
     }
-    /**
-     * ch
-     * @param serviceId
-     * @param hisId
-     */
+
+    function deleteService(serviceUniqKey) {
+        var reqdata = {
+            'token' : authorization
+        };
+        $.ajax({
+            url:' http://'+localIp+'/kong/services/'+serviceUniqKey,
+            type: 'delete',
+            contentType: "application/json",
+            headers:{'authorization': authorization},
+            async:false,
+            success: function (result) {
+                if (result.statusCode == 204){
+                    console.log("删除service成功！");
+                }
+
+            }
+        });
+
+
+    }
+
+    function updateService(hisId,szPer,gzper,oldhisId) {
+        var serviceName = getServiceName(hisId);
+        var data = {
+            'name' : serviceName,
+            'host' : getUpstreamName(hisId),
+            'token' : authorization
+        };
+        $.ajax({
+            url:' http://'+localIp+'/kong/services/'+getServiceName(oldhisId),
+            type: 'patch',
+            contentType: "application/json",
+            headers:{'authorization': authorization},
+            data :JSON.stringify(data),
+            success: function (result) {
+                var id = result.id;
+                getRouteIdByServiceUniqKey(serviceName, hisId, oldhisId);
+                deleteUpstream(getUpstreamName(oldhisId));
+                createUpstream(hisId,szPer,gzper);
+                interHtml();
+            },error: function (jqXHR, textStatus, errorThrown) {
+                alert("创建失败！请检查该hisId:"+hisId+"是否注册请求调度！")
+            }
+        });
+    }
+
+
+
     function createRoute(serviceId, hisId) {
         var data = {
             'name' : getRouteName(hisId),
             'paths' : ['/'],
-            "headers": {"hisId ":[hisId]},
+            "headers": {"hisid":[hisId]},
             'strip_path' : true,
             'preserve_host' :false,
             'https_redirect_status_code' : 426,
@@ -606,9 +712,93 @@
             headers:{'authorization': authorization},
             data :JSON.stringify(data),
             success: function (result) {
-                alert(result.name);
+            },error: function (jqXHR, textStatus, errorThrown) {
+                alert("创建失败！请检查"+getRouteName(hisId)+"是否已存在！")
             }
         });
+    }
+
+    function getRouteIdByServiceUniqKey(serviceUniqKey, hisId, oldhisId) {
+        var data = {
+            'token' : authorization
+        };
+        $.ajax({
+            url:' http://'+localIp+'/kong/services/'+serviceUniqKey+'/routes/',
+            type: 'get',
+            headers:{'authorization': authorization},
+            data :data,
+            success: function (result) {
+                if (result.hasOwnProperty("data")){
+                    var data = result.data;
+                    for (var i=0; i<data.length; i++){
+                        if (data[i].headers.hasOwnProperty(routeHeaderKey) && data[i].headers.hisid.length > 0){
+                            if (oldhisId == data[i].headers.hisid){
+                                updateRoute(serviceUniqKey,data[i].id,hisId);
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
+    /**
+     *
+     * @param serviceId
+     * @param hisId
+     */
+    function updateRoute(serviceUniqKey, routeUniqKey, hisId) {
+        var data = {
+            'name' : getRouteName(hisId),
+            "headers": {"hisid":[hisId]},
+            'token' : authorization
+        };
+        $.ajax({
+            url:'http://'+localIp+'/kong/services/'+serviceUniqKey+'/routes/'+routeUniqKey,
+            type: 'patch',
+            contentType: "application/json",
+            headers:{'authorization': authorization},
+            data :JSON.stringify(data),
+            success: function (result) {
+                alert("修改完成！");
+            }
+        });
+    }
+
+    function deleteRoute(serviceUniqKey) {
+        var success = false;
+        var routeUniqKey;
+        var reqdata = {
+            'token' : authorization
+        };
+        $.ajax({
+            url:' http://'+localIp+'/kong/services/'+serviceUniqKey+'/routes/',
+            type: 'get',
+            contentType: "application/json",
+            async:false,
+            headers:{'authorization': authorization},
+            success: function (result) {
+                if (result.hasOwnProperty("data")){
+                    var data = result.data;
+                    for (var i=0; i<data.length; i++){
+                        routeUniqKey = data[i].name;
+                        $.ajax({
+                            url:' http://'+localIp+'/kong/services/'+serviceUniqKey+'/routes/'+routeUniqKey,
+                            type: 'DELETE',
+                            contentType: "application/json",
+                            headers:{'authorization': authorization},
+                            data :JSON.stringify(reqdata),
+                            async:false,
+                            success: function (result) {
+                                console.log("删除route：" +routeUniqKey+ result.statusCode);
+                            }
+                        });
+                    }
+                    deleteService(serviceUniqKey);
+                    success = true;
+                }
+            }
+        });
+        return success;
     }
 
     function createUpstream(hisId, szPer, gzPer) {
@@ -623,17 +813,38 @@
             contentType: "application/json",
             headers:{'authorization': authorization},
             data :JSON.stringify(data),
+            async:false,
             success: function (result) {
-                if (result.statusCode == 409){
-                    alert("该hisId调度对应的upstream已存在！");
-                } else {
-                    var id = result.id;
-                    createTarget(id, "sz.com", szPer);
-                    createTarget(id, "gz.com", gzPer);
-                }
-
+                var id = result.id;
+                createTarget(id, szTarget, szPer);
+                createTarget(id, gzTarget, gzPer);
+            },error: function (jqXHR, textStatus, errorThrown) {
+                alert("创建失败！请检查该upstream:"+getUpstreamName(hisId)+"是否存在！")
             }
         });
+    }
+    function deleteUpstream(upstreamUniqKey) {
+        var isSuccess;
+        var reqdata = {
+            'token' : authorization
+        };
+        $.ajax({
+            url:' http://'+localIp+'/kong/upstreams/'+upstreamUniqKey,
+            type: 'delete',
+            contentType: "application/json",
+            headers:{'authorization': authorization},
+            async:false,
+            success: function (result) {
+                if (result.statusCode == 204){
+                    console.log("删除upstream成功！");
+                }
+                isSuccess = true;
+            },error: function (jqXHR, textStatus, errorThrown) {
+                alert("创建失败！请检查该upstream:"+upstreamUniqKey+"是否存在！")
+                isSuccess = false;
+            }
+        });
+        return isSuccess;
     }
 
     function createTarget(id,target,weight) {
@@ -649,9 +860,12 @@
             headers:{'authorization': authorization},
             data :JSON.stringify(data),
             success: function (result) {
+                console.log("创建upstream成功！");
             }
         });
     }
+
+
 
 
 </script>

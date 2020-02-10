@@ -1,8 +1,7 @@
-setInterval(addIdcSettingNav,1000);
+setInterval(addIdcSettingNav,500);
 var i = 0;
 function addIdcSettingNav() {
-
-    if ($("body").hasClass("_expose-aside") && i == 0){
+    if ($("body").hasClass("_expose-aside") && $(".side-nav__content").find("li").length == 14){
         i++;
         var idcHtmlDom = "<li data-ng-repeat=\"item in items\" data-ng-show=\"auth.authorize(item.access) &amp;&amp; item.show()\" data-ui-sref-active=\"active\" class=\"ng-scope\">\n" +
             "\n" +
