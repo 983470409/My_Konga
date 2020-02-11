@@ -1,4 +1,29 @@
-
+/**
+ * 表格头孢
+ * @type {string}
+ */
+var header = " <tr class='tableTitle'>\n" +
+    "                                    <th width=\"1\" class=\"text-nowrap ng-scope\" data-ng-repeat=\"item in titleItems | filter:titleFilter\">\n" +
+    "                                    <a class=\"clickable ng-binding ng-hide\" data-ng-show=\"item.column\" data-ng-click=\"changeSort(item)\" data-ng-bind-html=\"item.title.toUpperCase()\"></a>\n" +
+    "                                    <span data-ng-show=\"!item.column\" data-ng-bind-html=\"item.title.toUpperCase()\" class=\"ng-binding\"></span>\n" +
+    "                                        <i class=\"mdi ng-hide mdi-chevron-up\" data-ng-show=\"sort.column == item.column\" data-ng-class=\"{'mdi-chevron-down': !sort.direction, 'mdi-chevron-up': sort.direction}\">\n" +
+    "                                        </i>\n" +
+    "                                    </th>\n" +
+    "                                    <th width=\"\" class=\"text-nowrap ng-scope\" data-ng-repeat=\"item in titleItems | filter:titleFilter\">\n" +
+    "                                        <a class=\"clickable ng-binding\" data-ng-show=\"item.column\" data-ng-click=\"changeSort(item)\" data-ng-bind-html=\"item.title.toUpperCase()\">HISID</a>\n" +
+    "                                    </th>\n" +
+    "                                    <th width=\"\" class=\"text-nowrap ng-scope\" data-ng-repeat=\"item in titleItems | filter:titleFilter\">\n" +
+    "                                        <a class=\"clickable ng-binding\" data-ng-show=\"item.column\" data-ng-click=\"changeSort(item)\" data-ng-bind-html=\"item.title.toUpperCase()\">HisName</a>\n" +
+    "                                    </th>\n" +
+    "                                    <th width=\"\" class=\"text-nowrap ng-scope\" data-ng-repeat=\"item in titleItems | filter:titleFilter\">\n" +
+    "                                        <a class=\"clickable ng-binding\" data-ng-show=\"item.column\" data-ng-click=\"changeSort(item)\" data-ng-bind-html=\"item.title.toUpperCase()\">广州机房</a>\n" +
+    "                                    </th>\n" +
+    "                                    <th width=\"\" class=\"text-nowrap ng-scope\" data-ng-repeat=\"item in titleItems | filter:titleFilter\">\n" +
+    "                                        <a class=\"clickable ng-binding\" data-ng-show=\"item.column\" data-ng-click=\"changeSort(item)\" data-ng-bind-html=\"item.title.toUpperCase()\">深圳机房</a>\n" +
+    "                                    </th>\n" +
+    "                                    <th width=\"1\" ng-if=\"user.hasPermission('upstreams','edit')\" class=\"ng-scope\"></th>\n" +
+    "                                    <th width=\"1\" ng-if=\"user.hasPermission('upstreams','delete')\" class=\"ng-scope\"></th>\n" +
+    "                                </tr>";
 
 function gethisnamelikeById(hisId) {
     var hisName = [];
@@ -29,6 +54,19 @@ function gethisnameByhisid(hisId) {
     return hisName;
 }
 
+
+function getValueByHiskey(hisId) {
+    var hisName = [];
+    if (hisinfo != null){
+        for (var i=0; i<hisinfo.length; i++){
+            var truehis = hisinfo[i].hisId+"";
+            if (truehis.search(hisId) != -1 ){
+                hisName.push(hisinfo[i].hisName);
+            }
+        }
+    }
+    return hisName;
+}
 // function sethisInfo() {
 //     $.ajax({
 //         url: 'http://uoms.med.gzhc365.com/api/point/front/gethisinfo',

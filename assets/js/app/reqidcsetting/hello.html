@@ -153,7 +153,7 @@
                         <i class="mdi mdi-plus"></i>
                         机房调度
                     </button><!-- end ngIf: user.hasPermission($state.name.split('.')[0],'create') -->
-                        <button class="btn btn-link btn-danger btn-addIDC">
+                        <button class="btn btn-link btn-danger btn-addIDC" style="display: none;">
                             &nbsp;
                             新建机房&nbsp;
                         </button>
@@ -166,9 +166,9 @@
                                         Results :
                                     </span>
                                     <select class="form-control ng-pristine ng-untouched ng-valid ng-not-empty searchWay">
-                                        <option  value="0" selected="selected">根据hisId筛选</option>
-                                        <option  value="1">根据医院名称筛选</option>
-                                    </select>
+                                    <option  value="0" selected="selected">根据hisId筛选</option>
+                                    <option  value="1">根据医院名称筛选</option>
+                                </select>
                                 </div>
                                 <div class="input-group">
                                     <span class="input-group-addon dropdown-toggle">
@@ -213,7 +213,7 @@
                                     <th width="1" ng-if="user.hasPermission('upstreams','edit')" class="ng-scope"></th>
                                     <th width="1" ng-if="user.hasPermission('upstreams','delete')" class="ng-scope"></th>
                                 </tr>
-                                <tr>
+                                <tr style="display: none">
                                     <td>
                                     <span class="text-nowrap clickable ng-binding ng-isolate-scope" ><i uib-tooltip="Raw view" class="mdi mdi-eye-outline"></i></span>
                                     </td>
@@ -272,8 +272,7 @@
                     </em></label>
                     <div class="col-sm-7">
                         <input ng-model="consumer.username" class="form-control ng-pristine ng-untouched ng-valid ng-empty edithisId">
-                        <p class="help-block">这里填入
-                            <code>hisId</code></p>
+                        <p class="help-block hisnamecode"></p>
                     </div>
                 </div>
 
@@ -339,8 +338,7 @@
                     <div class="col-sm-7">
                         <input ng-model="consumer.username" class="form-control ng-pristine ng-untouched ng-valid ng-empty hisId">
                         <!-- ngIf: errors.username -->
-                        <p class="help-block">这里填入
-                            <code>hisId</code></p>
+                        <p class="help-block "><code class="hisnamecode">模糊匹配的机房名称在此显示：</code></p>
                     </div>
                 </div>
 
@@ -484,13 +482,14 @@
 </footer><!-- end ngIf: isAuthenticated() -->
 </div>
 
-<script src="../../../../kongadata/constant.js"></script>
 <script src="idcconfig/constant.js"></script>
-<script src="js/dependencies/sails.io.js"></script>
-<script src="idcjs/jquery.min.js"></script>
-<script src="idcjs/idcfunction.js"></script>
-<script src="min/production.min.js?r=0.14.7"></script>
+<script src="idcconfig/hismapper.js"></script>
+<script src="http://uoms.med.gzhc365.com/api/point/front/gethisinfo"></script>
+<script src="jquery.min.js"></script>
+<script src="idcfunction.js"></script>
 <script>
+
+
     var editBeforeHisId;
     hisinfo = hisdata.data;
     console.log(hisinfo);
@@ -503,6 +502,25 @@
         $(".tableReq tr:gt(0)").hide();
         var $d = $(".tableReq tr:gt(0)").filter(":contains('"+$.trim(key)+"')");
         $d.show();
+    });
+
+    $('body').on('keyup', '.hisId', function () {
+        $(".hisnamecode").html("");
+        $(".hisnamecode").append("模糊匹配的机房名称在此显示：");
+        var key = $(".hisId").val();
+        var result = getValueByHiskey(key);
+        if (result.length > 10){
+            for (var i = 0; i < 10; i ++){
+                var hisname = result[i]+"、";
+                $(".hisnamecode").append(hisname);
+            }
+            $(".hisnamecode").append("...");
+        } else {
+            for (var i = 0; i < result.length; i ++){
+                var hisname = result[i]+"、";
+                $(".hisnamecode").append(hisname);
+            }
+        }
     });
 
 
@@ -559,6 +577,10 @@
             alert("HisId不能为空！");
             return ;
         }
+        if (hisId == 0){
+            alert("HisId不能为0！");
+            return ;
+        }
         var idc = $(".idcChoice").val();
         //0广州/1深圳
         var gzPer;
@@ -571,6 +593,7 @@
             gzPer = 100 - szPer;
         }
         creatService(hisId,szPer,gzPer);
+
     });
 
     $('body').on('click', '.closeAddIDC', function () {
@@ -638,6 +661,7 @@
                 alert("新增his请求调度成功！");
                 interHtml();
                 $(".hisId").val("");
+                $(".hisnamecode").html("");
             },error: function (jqXHR, textStatus, errorThrown) {
                 alert("创建失败！请检查该hisId是否注册请求调度！")
             }
@@ -696,7 +720,7 @@
         var data = {
             'name' : getRouteName(hisId),
             'paths' : ['/'],
-            "headers": {routeHeaderKey:[hisId]},
+            "headers": {[routeHeaderKey]:[hisId]},
             'strip_path' : true,
             'preserve_host' :false,
             'https_redirect_status_code' : 426,
@@ -732,8 +756,8 @@
                 if (result.hasOwnProperty("data")){
                     var data = result.data;
                     for (var i=0; i<data.length; i++){
-                        if (data[i].headers.hasOwnProperty(routeHeaderKey) && data[i].headers.routeHeaderKey.length > 0){
-                            if (oldhisId == data[i].headers.routeHeaderKey){
+                        if (data[i].headers.hasOwnProperty(routeHeaderKey) && data[i].headers[routeHeaderKey].length > 0){
+                            if (oldhisId == data[i].headers[routeHeaderKey]){
                                 updateRoute(serviceUniqKey,data[i].id,hisId);
                             }
                         }
@@ -750,7 +774,7 @@
     function updateRoute(serviceUniqKey, routeUniqKey, hisId) {
         var data = {
             'name' : getRouteName(hisId),
-            "headers": {routeHeaderKey:[hisId]},
+            "headers": {[routeHeaderKey]:[hisId]},
             'token' : authorization
         };
         $.ajax({
