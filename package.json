@@ -39,7 +39,7 @@
     "moment": "^2.22.2",
     "node-cron": "^1.2.1",
     "node-sass": "^4.9.2",
-    "nodemailer": "^4.6.7",
+    "nodemailer": "^6.4.16",
     "nodemailer-mailgun-transport": "^1.4.0",
     "passport": "0.3.0",
     "passport-ldapauth": "^2.0.0",
