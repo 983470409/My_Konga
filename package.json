@@ -55,7 +55,7 @@
     "socket.io-redis": "~1.0.0",
     "unirest": "git+https://git@github.com/pantsel/unirest-nodejs#master",
     "uuid": "^3.3.2",
-    "validator": "4.2.1"
+    "validator": "13.7.0"
   },
   "devDependencies": {
     "chai": "3.4.0",
