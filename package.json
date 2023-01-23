@@ -61,7 +61,7 @@
     "chai": "3.4.0",
     "mocha": "^5.2.0",
     "should": "7.1.1",
-    "supertest": "1.1.0"
+    "supertest": "6.3.3"
   },
   "scripts": {
     "postinstall": "bower --allow-root install",
